@@ -5,7 +5,9 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      "half-screen": "h-[50vh]",
+    },
   },
   plugins: [],
 };
