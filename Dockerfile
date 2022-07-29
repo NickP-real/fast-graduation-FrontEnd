@@ -10,5 +10,5 @@ RUN curl -sL https://unpkg.com/@pnpm/self-installer | node
 
 # Installing dependencies
 COPY . .
+RUN pnpm install supertokens-node supertokens-auth-react nextjs-cors
 RUN pnpm install && pnpm build
-
