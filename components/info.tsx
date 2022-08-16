@@ -1,7 +1,9 @@
 import React from "react";
 
 const Info: React.FC = () => {
-  return <div className="flex-grow bg-white rounded-[40px]">tt</div>;
+  return (
+    <div className="container flex-grow mx-auto bg-white rounded-[40px] drop-shadow-lg"></div>
+  );
 };
 
 export default Info;
