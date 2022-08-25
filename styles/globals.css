@@ -34,6 +34,16 @@ a {
   .fast-text {
     @apply font-extrabold bg-clip-text bg-gradient-to-b from-[#FA897B] to-[#CCABD8]/[85] text-transparent;
   }
+
+  .fast-head {
+    @apply font-extrabold bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      rgba(134, 227, 206, 0),
+      rgba(134, 227, 206, 1),
+      rgba(204, 171, 216, 1),
+      rgba(204, 171, 216, 0.31)
+    );
+  }
 }
 
 @media (prefers-color-scheme: dark) {
