@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const AdminNavbar: React.FC = () => {
   return (
@@ -8,7 +9,7 @@ const AdminNavbar: React.FC = () => {
         <li>จัดการข้อมูลแผนการศึกษา</li>
         <li>จัดการข้อมูลรายวิชาที่เปิดสอน</li>
       </ul>
-      <h3>ออกจากระบบ</h3>
+      <LogoutAndProfile />
     </>
   );
 };
@@ -20,8 +21,17 @@ const StudentNavbar: React.FC = () => {
         <li>จัดการข้อมูลการเรียน</li>
         <li>แนะนำแผนการศึกษา</li>
       </ul>
-      <h3>ออกจากระบบ</h3>
+      <LogoutAndProfile />
     </>
+  );
+};
+
+const LogoutAndProfile: React.FC = () => {
+  return (
+    <div className="flex gap-x-2">
+      <Image alt="profile" src="/profile.svg" width={69 / 2} height={69 / 2} />
+      <h3>ออกจากระบบ</h3>
+    </div>
   );
 };
 

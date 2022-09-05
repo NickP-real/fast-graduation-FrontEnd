@@ -24,7 +24,7 @@ const Page: React.FC<Props> = ({ type, children }: Props) => {
         </div>
       </header>
 
-      {children}
+      <main className="container flex-grow my-5 mx-auto">{children}</main>
     </div>
   );
 };
