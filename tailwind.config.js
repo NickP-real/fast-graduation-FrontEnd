@@ -6,7 +6,9 @@ module.exports = {
   ],
   theme: {
     extend: {
-      "half-screen": "h-[50vh]",
+      height: {
+        "half-screen": "50vh",
+      },
     },
   },
   plugins: [],
