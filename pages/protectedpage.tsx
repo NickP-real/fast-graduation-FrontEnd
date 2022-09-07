@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
-import Home from ".";
+import Index from ".";
+import Home from "./main";
 
 const ProtectedPage: NextPage = () => {
   return <Home />;

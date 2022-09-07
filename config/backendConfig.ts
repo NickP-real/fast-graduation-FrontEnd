@@ -13,7 +13,10 @@ export const backendConfig = (): TypeInput => {
     },
     appInfo,
     recipeList: [
-      EmailPasswordNode.init(),
+      EmailPasswordNode.init({
+        emailVerificationFeature: {
+          mode: "REQUIRED"
+      }),
       SessionNode.init(),
     ],
     isInServerlessEnv: true,
