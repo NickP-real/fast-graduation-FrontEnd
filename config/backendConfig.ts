@@ -15,7 +15,7 @@ export const backendConfig = (): TypeInput => {
     recipeList: [
       EmailPasswordNode.init({
         emailVerificationFeature: {
-          mode: "REQUIRED"
+          mode: "REQUIRED" }
       }),
       SessionNode.init(),
     ],
