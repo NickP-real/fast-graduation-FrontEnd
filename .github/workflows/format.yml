@@ -12,7 +12,7 @@ jobs:
         with:
           version: latest
           run_install: |
-            - args: [--frozen-lockfile -D, prettier, prettier-plugin-tailwindcss]
+            - args: [-D, prettier, prettier-plugin-tailwindcss]
 
       - name: Formatting
         run: pnpm prettier --write .
