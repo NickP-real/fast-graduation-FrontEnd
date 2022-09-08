@@ -12,7 +12,14 @@ jobs:
         with:
           version: latest
           run_install: |
+            args: [--frozen-lockfile]
             - args: [-D, prettier, prettier-plugin-tailwindcss]
 
       - name: Formatting
         run: pnpm prettier --write .
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
