@@ -12,7 +12,6 @@ jobs:
         with:
           version: latest
           run_install: |
-            - recursive: false
             - args: [-D, prettier, prettier-plugin-tailwindcss]
 
       - name: Formatting
