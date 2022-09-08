@@ -14,4 +14,4 @@ jobs:
         run: pnpm add -d prettier prettier-plugin-tailwindcss
 
       - name: Formatting
-      - run: pnpm prettier --write .
+        run: pnpm prettier --write .
