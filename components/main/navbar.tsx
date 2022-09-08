@@ -4,7 +4,7 @@ import Image from "next/image";
 const AdminNavbar: React.FC = () => {
   return (
     <>
-      <ul className="flex flex-grow gap-x-8">
+      <ul className="flex flex-grow gap-x-1 md:gap-x-8">
         <li>จัดการหลักสูตร</li>
         <li>จัดการข้อมูลแผนการศึกษา</li>
         <li>จัดการข้อมูลรายวิชาที่เปิดสอน</li>
@@ -28,7 +28,7 @@ const StudentNavbar: React.FC = () => {
 
 const LogoutAndProfile: React.FC = () => {
   return (
-    <div className="flex gap-x-2">
+    <div className="flex gap-x-3">
       <Image alt="profile" src="/profile.svg" width={69 / 2} height={69 / 2} />
       <h3>ออกจากระบบ</h3>
     </div>

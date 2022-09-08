@@ -6,7 +6,7 @@ import React from "react";
 const Summary: React.FC = () => {
   return (
     <Page type="Student">
-      <h2 className="text-4xl fast-head">สรุปผลการเลือก</h2>
+      <h2 className="fast-head text-4xl">สรุปผลการเลือก</h2>
       <Panel>
         <div className="flex flex-col gap-y-7">
           <div className="justify-self-center">
@@ -14,11 +14,11 @@ const Summary: React.FC = () => {
           </div>
 
           <div className="mx-auto w-[90%]">
-            <h2 className="mb-5 text-4xl fast-text">จำนวนหน่วยกิจ</h2>
-            <table className="text-center w-[90%] fast-text border-collapse table-fixed mx-auto">
+            <h2 className="fast-text mb-5 text-4xl">จำนวนหน่วยกิจ</h2>
+            <table className="fast-text mx-auto w-[90%] table-fixed border-collapse text-center">
               <thead className="h-12">
                 <tr>
-                  <th className="border border-black w-[60%]">หมวดหมู่</th>
+                  <th className="w-[60%] border border-black">หมวดหมู่</th>
                   <th className="border border-black">หน่วยกิจรวม</th>
                 </tr>
               </thead>
@@ -31,7 +31,7 @@ const Summary: React.FC = () => {
             </table>
           </div>
 
-          <button className="bg-[#D0E6A5] w-60 h-16 rounded-xl text-2xl text-[#CCABD8] font-extrabold mx-auto">
+          <button className="mx-auto h-16 w-60 rounded-xl bg-[#D0E6A5] text-2xl font-extrabold text-[#CCABD8]">
             ยืนยันและดำเนินการ
           </button>
         </div>

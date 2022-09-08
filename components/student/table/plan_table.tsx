@@ -1,6 +1,6 @@
-import Image from "next/image";
 import React from "react";
 import Table from "./table";
+import { PlusCircleIcon } from "@heroicons/react/24/outline";
 
 interface Props {
   type?: string;
@@ -11,7 +11,7 @@ const PlanTable: React.FC<Props> = () => {
     <Table
       Header={
         <tr>
-          <th className="w-[20%] border border-black">เลือกวิชาที่ผ่านมา</th>
+          <th className="w-[15%] border border-black">เลือกวิชาที่ผ่านมา</th>
           <th className="border border-black">รหัสวิชา</th>
           <th className="border border-black">ชื่อวิชา</th>
           <th className="border border-black">หมวดหมู่</th>
@@ -20,22 +20,17 @@ const PlanTable: React.FC<Props> = () => {
       Content={
         /* TODO: loop info here */
         <>
-          <tr className="h-12">
+          <tr>
             <td className="border border-black">check</td>
             <td className="border border-black">xxxxxx</td>
             <td className="border border-black">xxxxxx</td>
             <td className="border border-black">xxxxxx</td>
           </tr>
           <tr className="relative h-12">
-            <div className="flex absolute top-1/2 left-1/2 gap-x-1 justify-center items-center -translate-x-1/2 -translate-y-1/2">
-              <Image
-                alt="เพิ่มวิชา"
-                src="/plus_btn.svg"
-                height={60 / 2.5}
-                width={60 / 2.5}
-              />
+            <td className="absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center gap-x-1">
+              <PlusCircleIcon className="w-7" />
               <a>เพิ่มวิชา</a>
-            </div>
+            </td>
           </tr>
         </>
       }

@@ -1,22 +1,20 @@
 import { ReactNode } from "react";
 
 interface Props {
-  width?: number;
+  small?: boolean;
   shadow?: string;
   children?: ReactNode | ReactNode[];
 }
 
-export const Panel: React.FC<Props> = ({ width, shadow, children }: Props) => {
-  function currentWidth() {
-    return width || 100;
-  }
-  function currentShadow() {
-    return shadow || "25px_40px_40px_-15px_rgba(204,171,216,0.45)";
-  }
-
+export const Panel: React.FC<Props> = ({ small, shadow, children }: Props) => {
+  const panelWidth: string = small ? "max-w-[40%]" : "max-w-full";
+  const panelShadow: string =
+    shadow === "orange"
+      ? "shadow-[25px_40px_40px_-15px_rgba(250,137,123,0.35)]"
+      : "shadow-[25px_40px_40px_-15px_rgba(204,171,216,0.45)]";
   return (
     <section
-      className={`w-full max-w-[${currentWidth()}%] rounded-[10px] px-8 py-5 bg-white shadow-[${currentShadow()}]`}
+      className={`${panelWidth} w-full rounded-[10px] bg-white px-8 py-5 ${panelShadow}`}
     >
       {children}
     </section>

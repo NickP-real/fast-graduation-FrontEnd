@@ -13,17 +13,17 @@ const PlanListTable: React.FC = () => {
       }
       Content={
         <>
-          <tr className="h-12">
+          <tr>
             {TableContent("xxxxxx")}
             {TableContent("xxxxxx")}
             {TableContent("xxxxxx")}
           </tr>
-          <tr className="h-12">
+          <tr>
             {TableContent("xxxxxx")}
             {TableContent("xxxxxx")}
             {TableContent("xxxxxx")}
           </tr>
-          <tr className="h-12">
+          <tr>
             {TableContent("xxxxxx")}
             {TableContent("xxxxxx")}
             {TableContent("xxxxxx")}
