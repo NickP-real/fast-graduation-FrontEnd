@@ -1,6 +1,6 @@
-import EmailPasswordNode from 'supertokens-node/recipe/emailpassword'
-import SessionNode from 'supertokens-node/recipe/session'
-import { appInfo } from './appInfo'
+import EmailPasswordNode from "supertokens-node/recipe/emailpassword";
+import SessionNode from "supertokens-node/recipe/session";
+import { appInfo } from "./appInfo";
 import { TypeInput } from "supertokens-node/types";
 
 export const backendConfig = (): TypeInput => {
@@ -12,11 +12,7 @@ export const backendConfig = (): TypeInput => {
       // apiKey: "IF YOU HAVE AN API KEY FOR THE CORE, ADD IT HERE",
     },
     appInfo,
-    recipeList: [
-      EmailPasswordNode.init(),
-      SessionNode.init(),
-    ],
+    recipeList: [EmailPasswordNode.init(), SessionNode.init()],
     isInServerlessEnv: true,
-  }
-}
-
+  };
+};
