@@ -7,13 +7,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup pnpm
+      - name: Setup pnpm and install dependencies
         uses: pnpm/action-setup@v2.2.2
         with:
           version: latest
-
-      - name: Install dependencies
-        run: pnpm add -d prettier prettier-plugin-tailwindcss
+          run_install:
+            - recursive: true
+              args: [--frozen-lockfile, --strict-peer-dependencies]
+            - args: [-d, prettier, prettier-plugin-tailwindcss]
 
       - name: Formatting
         run: pnpm prettier --write .
