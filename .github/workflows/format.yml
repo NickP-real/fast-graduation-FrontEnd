@@ -9,9 +9,11 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v2.2.2
+        with:
+          version: latest
 
       - name: Install dependencies
-        run: pnpm add -d prettier prettier-plugin-tailwindcss
+        run: pnpm install
 
       - name: Formatting
         run: pnpm prettier --write .
