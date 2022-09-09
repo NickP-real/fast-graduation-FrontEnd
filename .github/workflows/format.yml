@@ -21,7 +21,7 @@ jobs:
           cache: "pnpm"
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install prettier prettier-plugin-tailwindcss
 
       - name: Formatting
         run: pnpm prettier --write .
