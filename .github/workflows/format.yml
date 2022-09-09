@@ -1,5 +1,7 @@
 name: prettier-format
-on: [push]
+on:
+  push:
+    branches: ["ui"]
 jobs:
   format:
     runs-on: ubuntu-latest
