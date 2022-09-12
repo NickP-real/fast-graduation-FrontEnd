@@ -7,9 +7,11 @@ interface Props {
 
 export const Table: React.FC<Props> = ({ Header, Content }: Props) => {
   return (
-    <table className="w-full text-center border border-black border-collapse table-fixed">
-      <thead className="h-12 fast-text">{Header}</thead>
-      <tbody className="h-12 text-[#fa897b] font-extrabold">{Content}</tbody>
+    <table className="w-full table-fixed border-collapse border border-black text-center">
+      <thead className="fast-text h-12 [&>tr]:h-12">{Header}</thead>
+      <tbody className="h-12 font-extrabold text-[#fa897b] [&>tr]:h-12">
+        {Content}
+      </tbody>
     </table>
   );
 };

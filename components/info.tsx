@@ -2,7 +2,7 @@ import React from "react";
 
 const Info: React.FC = () => {
   return (
-    <div className="container flex-grow mx-auto bg-white rounded-[40px] drop-shadow-lg"></div>
+    <div className="container mx-auto flex-grow rounded-[40px] bg-white drop-shadow-lg"></div>
   );
 };
 

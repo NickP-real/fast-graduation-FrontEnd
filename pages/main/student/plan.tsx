@@ -6,11 +6,11 @@ import React from "react";
 const Plan: React.FC = () => {
   return (
     <Page type="Student">
-      <h2 className="text-4xl fast-head">จัดการแผนการเรียน</h2>
+      <h2 className="fast-head text-4xl">จัดการแผนการเรียน</h2>
       <Panel>
-        <div className="flex flex-col gap-y-7 justify-center items-center">
+        <div className="flex flex-col items-center justify-center gap-y-7">
           <PlanTable />
-          <button className="bg-[#FFDD95B5] w-60 h-16 rounded-xl text-2xl text-[#fa897b] font-extrabold">
+          <button className="h-16 w-60 rounded-xl bg-[#FFDD95B5] text-2xl font-extrabold text-[#fa897b]">
             ตรวจสอบการเลือก
           </button>
         </div>

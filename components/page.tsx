@@ -8,23 +8,27 @@ interface Props {
 
 const Page: React.FC<Props> = ({ type, children }: Props) => {
   return (
-    <div className="flex flex-col h-screen">
-      <div className="flex h-20 gradient">
-        <Image
-          src="/fastgrad.svg"
-          width={200}
-          height={100}
-          alt="fast graduation logo"
-        />
+    <div className="flex h-screen flex-col">
+      <div className="relative h-20">
+        <div className="gradient absolute top-0 h-full w-full blur"></div>
+        <div className="container relative mx-auto h-full w-full">
+          <Image
+            src="/fastgrad.svg"
+            width={200}
+            height={100}
+            alt="fast graduation logo"
+            layout="fill"
+            objectFit="contain"
+            objectPosition="left"
+          />
+        </div>
       </div>
 
-      <header className="relative h-16 bg-white before:h-5 before:bg-gradient-to-r before:from-[#86E3CE]/50 before:to-[#CCABD8] before:w-full before:z-[-1] before:right-0 before:max-w-[95%] before:-bottom-2 before:absolute">
-        <div className="container flex justify-between items-center mx-auto h-full text-2xl fast-text">
-          <Navbar type={type} />
-        </div>
+      <header className="relative h-16 bg-white before:absolute before:right-0 before:-bottom-2 before:z-[-1] before:h-5 before:w-full before:max-w-[95%] before:bg-gradient-to-r before:from-fgreen/50 before:to-fpurple">
+        <Navbar type={type} />
       </header>
 
-      <main className="container flex-grow my-5 mx-auto">{children}</main>
+      <main className="container my-5 mx-auto flex-grow">{children}</main>
     </div>
   );
 };
