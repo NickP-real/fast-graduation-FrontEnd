@@ -39,7 +39,6 @@ interface NavbarType {
   type: string;
 }
 
-// Singleton
 export const Navbar: React.FC<NavbarType> = ({ type }: NavbarType) => {
   function Navtype(type: string) {
     if (type === "Student") {
@@ -48,7 +47,11 @@ export const Navbar: React.FC<NavbarType> = ({ type }: NavbarType) => {
       return <AdminNavbar />;
     }
   }
-  return <>{Navtype(type)}</>;
+  return (
+    <div className="fast-text container mx-auto flex h-full items-center justify-between text-sm md:text-2xl">
+      {Navtype(type)}
+    </div>
+  );
 };
 
 export default Navbar;

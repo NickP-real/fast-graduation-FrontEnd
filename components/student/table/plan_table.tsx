@@ -26,7 +26,7 @@ const PlanTable: React.FC<Props> = () => {
             <td className="border border-black">xxxxxx</td>
             <td className="border border-black">xxxxxx</td>
           </tr>
-          <tr className="relative h-12">
+          <tr className="relative">
             <td className="absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center gap-x-1">
               <PlusCircleIcon className="w-7" />
               <a>เพิ่มวิชา</a>
