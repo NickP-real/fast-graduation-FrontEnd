@@ -24,9 +24,7 @@ const Page: React.FC<Props> = ({ type, children }: Props) => {
         </div>
       </div>
 
-      <header className="relative h-16 bg-white before:absolute before:right-0 before:-bottom-2 before:z-[-1] before:h-5 before:w-full before:max-w-[95%] before:bg-gradient-to-r before:from-fgreen/50 before:to-fpurple">
-        <Navbar type={type} />
-      </header>
+      <Navbar type={type} />
 
       <main className="container my-5 mx-auto flex-grow">{children}</main>
     </div>

@@ -3,7 +3,7 @@ import Page from "components/page";
 import PlanTable from "components/student/table/plan_table";
 import React from "react";
 
-const Plan: React.FC = () => {
+const ManageCourse: React.FC = () => {
   return (
     <Page type="Student">
       <h2 className="fast-head text-4xl">จัดการแผนการเรียน</h2>
@@ -19,4 +19,4 @@ const Plan: React.FC = () => {
   );
 };
 
-export default Plan;
+export default ManageCourse;
