@@ -2,7 +2,7 @@ import Navbar from "./main/navbar";
 import Image from "next/image";
 
 interface Props {
-  type: string;
+  type: "Student" | "Admin";
   children?: React.ReactNode | React.ReactNode[];
 }
 
@@ -11,7 +11,7 @@ const Page: React.FC<Props> = ({ type, children }: Props) => {
     <div className="flex h-screen flex-col">
       <div className="relative h-20">
         <div className="gradient absolute top-0 h-full w-full blur"></div>
-        <div className="container relative mx-auto h-full w-full">
+        <div className="container relative mx-auto h-full w-full drop-shadow-lg">
           <Image
             src="/fastgrad.svg"
             width={200}
@@ -20,6 +20,7 @@ const Page: React.FC<Props> = ({ type, children }: Props) => {
             layout="fill"
             objectFit="contain"
             objectPosition="left"
+            className="object-contain"
           />
         </div>
       </div>
@@ -29,6 +30,18 @@ const Page: React.FC<Props> = ({ type, children }: Props) => {
       <main className="container my-5 mx-auto flex-grow">{children}</main>
     </div>
   );
+};
+
+interface PageProps {
+  children?: React.ReactNode | React.ReactNode[];
+}
+
+export const StudentPage: React.FC<PageProps> = ({ children }: PageProps) => {
+  return <Page type="Student">{children}</Page>;
+};
+
+export const AdminPage: React.FC<PageProps> = ({ children }: PageProps) => {
+  return <Page type="Admin">{children}</Page>;
 };
 
 export default Page;

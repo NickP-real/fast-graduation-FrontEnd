@@ -7,7 +7,12 @@ interface NavbarData {
   href: string;
 }
 
-const NavbarLayout: React.FC<NavbarData[]> = (datas: NavbarData[]) => {
+interface LayoutProps {
+  datas: NavbarData[];
+  type: "Student" | "Admin";
+}
+
+const NavbarLayout: React.FC<LayoutProps> = ({ datas, type }: LayoutProps) => {
   return (
     <>
       <ul className="flex flex-grow gap-x-1 md:gap-x-8">
@@ -19,32 +24,43 @@ const NavbarLayout: React.FC<NavbarData[]> = (datas: NavbarData[]) => {
           );
         })}
       </ul>
-      <LogoutAndProfile />
+      <LogoutAndProfile type={type} />
     </>
   );
 };
 
 const AdminNavbar: React.FC = () => {
   const adminNav: NavbarData[] = [
-    { value: "จัดการหลักสูตร", href: "/admin/" },
-    { value: "จัดการข้อมูลแผนการศึกษา", href: "/admin/" },
-    { value: "จัดการข้อมูลรายวิชาที่เปิดสอน", href: "/admin/" },
+    { value: "จัดการหลักสูตร", href: "/main/admin/manage-curriculum" },
+    { value: "จัดการข้อมูลแผนการศึกษา", href: "/main/admin/" },
+    {
+      value: "จัดการข้อมูลรายวิชาที่เปิดสอน",
+      href: "/main/admin/manage-course",
+    },
   ];
-  return NavbarLayout(adminNav);
+  return <NavbarLayout datas={adminNav} type="Admin" />;
 };
 
 const StudentNavbar: React.FC = () => {
   const studentNav: NavbarData[] = [
-    { value: "จัดการข้อมูลการเรียน", href: "/main/student/manage_course" },
+    { value: "จัดการข้อมูลการเรียน", href: "/main/student/manage-course" },
     { value: "แนะนำแผนการศึกษา", href: "/main/student/" },
   ];
-  return NavbarLayout(studentNav);
+  return <NavbarLayout datas={studentNav} type="Student" />;
 };
 
-const LogoutAndProfile: React.FC = () => {
+interface LogoutAndProfileProps {
+  type: "Student" | "Admin";
+}
+
+const LogoutAndProfile: React.FC<LogoutAndProfileProps> = ({
+  type,
+}: LogoutAndProfileProps) => {
+  const href: string =
+    type === "Student" ? "/main/student/profile" : "/main/admin/profile";
   return (
     <div className="flex items-center gap-x-3">
-      <Link href="/main/student/profile" passHref>
+      <Link href={href} passHref>
         <a className="flex items-center justify-center">
           <Image
             alt="profile"
@@ -60,7 +76,7 @@ const LogoutAndProfile: React.FC = () => {
 };
 
 interface NavbarType {
-  type: string;
+  type: "Student" | "Admin";
 }
 
 export const Navbar: React.FC<NavbarType> = ({ type }: NavbarType) => {
@@ -73,7 +89,7 @@ export const Navbar: React.FC<NavbarType> = ({ type }: NavbarType) => {
   }
   return (
     <header className="relative h-16 bg-white">
-      <div className="fast-text container mx-auto flex h-full items-center justify-between text-sm md:text-2xl">
+      <div className="fast-text container mx-auto flex h-full items-center justify-between text-sm md:text-xl">
         {Navtype(type)}
       </div>
       <div className="container mx-auto h-2 bg-gradient-to-r from-fgreen to-fpurple"></div>
