@@ -1,11 +1,11 @@
 import Panel from "components/main/panel";
-import Page from "components/page";
+import { StudentPage } from "components/page";
 import PlanTable from "components/student/table/plan_table";
 import React from "react";
 
-const Plan: React.FC = () => {
+const ManageCourse: React.FC = () => {
   return (
-    <Page type="Student">
+    <StudentPage>
       <h2 className="fast-head text-4xl">จัดการแผนการเรียน</h2>
       <Panel>
         <div className="flex flex-col items-center justify-center gap-y-7">
@@ -15,8 +15,8 @@ const Plan: React.FC = () => {
           </button>
         </div>
       </Panel>
-    </Page>
+    </StudentPage>
   );
 };
 
-export default Plan;
+export default ManageCourse;

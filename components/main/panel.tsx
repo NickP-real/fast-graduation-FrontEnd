@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const Panel: React.FC<Props> = ({ small, shadow, children }: Props) => {
-  const panelWidth: string = small ? "max-w-[40%]" : "max-w-full";
+  const panelWidth: string = small ? "max-w-[40vw]" : "max-w-full";
   const panelShadow: string =
     shadow === "orange"
       ? "shadow-[25px_40px_40px_-15px_rgba(250,137,123,0.35)]"
