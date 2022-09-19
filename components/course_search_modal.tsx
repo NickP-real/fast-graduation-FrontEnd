@@ -11,9 +11,15 @@ interface Props {
 
 const CourseSearchModal: React.FC<Props> = ({ isOpen, setIsOpen }: Props) => {
   return (
-    <Dialog open={isOpen} onClose={setIsOpen}>
-      <Dialog.Panel>
-        <h2>ค้นหา กระบวนวิชา</h2>
+    <Dialog
+      open={isOpen}
+      onClose={setIsOpen}
+      className="container fixed inset-0 mx-auto my-auto h-max rounded-lg bg-gradient-to-b from-fred to-fpurple shadow-md"
+    >
+      <Dialog.Panel className="m-2 rounded bg-white px-10 py-2">
+        <Dialog.Title>
+          <h2>ค้นหา กระบวนวิชา</h2>
+        </Dialog.Title>
         <SearchBar />
 
         <Table

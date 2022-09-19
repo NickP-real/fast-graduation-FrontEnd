@@ -8,7 +8,7 @@ interface Props {
 
 const Page: React.FC<Props> = ({ type, children }: Props) => {
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex min-h-screen flex-col overflow-y-auto">
       <div className="relative h-20">
         <div className="gradient absolute top-0 h-full w-full blur"></div>
         <div className="container relative mx-auto h-full w-full drop-shadow-lg">
