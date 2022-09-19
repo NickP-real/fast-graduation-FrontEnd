@@ -1,32 +1,32 @@
 import React from "react";
-import Table, { TableContent, TableHeader } from "./table";
+import Table, { TableContent, TableHeader } from "components/table";
 
 const PlanListTable: React.FC = () => {
   return (
     <Table
       Header={
         <tr>
-          {TableHeader("รหัสวิชา")}
-          {TableHeader("ชื่อวิชา")}
-          {TableHeader("หมวดหมู่")}
+          <TableHeader str="รหัสวิชา" />
+          <TableHeader str="ชื่อวิชา" />
+          <TableHeader str="หมวดหมู่" />
         </tr>
       }
       Content={
         <>
           <tr>
-            {TableContent("xxxxxx")}
-            {TableContent("xxxxxx")}
-            {TableContent("xxxxxx")}
+            <TableContent str="xxxxxx" />
+            <TableContent str="xxxxxx" />
+            <TableContent str="xxxxxx" />
           </tr>
           <tr>
-            {TableContent("xxxxxx")}
-            {TableContent("xxxxxx")}
-            {TableContent("xxxxxx")}
+            <TableContent str="xxxxxx" />
+            <TableContent str="xxxxxx" />
+            <TableContent str="xxxxxx" />
           </tr>
           <tr>
-            {TableContent("xxxxxx")}
-            {TableContent("xxxxxx")}
-            {TableContent("xxxxxx")}
+            <TableContent str="xxxxxx" />
+            <TableContent str="xxxxxx" />
+            <TableContent str="xxxxxx" />
           </tr>
         </>
       }

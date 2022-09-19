@@ -12,8 +12,11 @@ module.exports = {
       },
       colors: {
         fred: "#FA897B",
+        fbrred: "#FBBDB5",
         fgreen: "#86E3CE",
+        fbrgreen: "#D0E6A5",
         fpurple: "#CCABD8",
+        fyellow: "#FFDD95B5",
       },
     },
   },
