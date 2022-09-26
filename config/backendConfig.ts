@@ -12,7 +12,42 @@ export const backendConfig = (): TypeInput => {
       // apiKey: "IF YOU HAVE AN API KEY FOR THE CORE, ADD IT HERE",
     },
     appInfo,
-    recipeList: [EmailPasswordNode.init(), SessionNode.init()],
+    recipeList: [
+      EmailPasswordNode.init({
+        signUpFeature: {
+          formFields: [
+            {
+              id: "name",
+            },
+            {
+              id: "student_id",
+            },
+            {
+              id: "fname_th",
+            },
+            {
+              id: "mname_th",
+              optional: true,
+            },
+            {
+              id: "lname_th",
+            },
+            {
+              id: "fname_en",
+            },
+            {
+              id: "mname_en",
+              optional: true,
+            },
+            {
+              id: "lname_en",
+              optional: true,
+            },
+          ],
+        },
+      }),
+      SessionNode.init(),
+    ],
     isInServerlessEnv: true,
   };
 };
