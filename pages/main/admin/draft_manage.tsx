@@ -3,6 +3,10 @@ import SubmitButton from "components/submit_button";
 import React from "react";
 
 const DraftManage: React.FC = () => {
+  function handleOnAddClick() {
+    return;
+  }
+
   return (
     <div>
       <h2>จัดการรายวิชา</h2>
@@ -102,7 +106,7 @@ const DraftManage: React.FC = () => {
         <h3>วิชาที่พ่าน</h3>
         <div>
           <h3>1 กลุ่มในต่อไปนี้</h3>
-          <DelTable />
+          <DelTable onAddClick={handleOnAddClick} />
         </div>
 
         <button className="mx-auto block w-max rounded-lg bg-fyellow p-2 text-lg font-extrabold text-fpurple">
