@@ -44,7 +44,7 @@ const AdminNavbar: React.FC = () => {
 const StudentNavbar: React.FC = () => {
   const studentNav: NavbarData[] = [
     { value: "จัดการข้อมูลการเรียน", href: "/main/student/manage-course" },
-    { value: "แนะนำแผนการศึกษา", href: "/main/student/" },
+    { value: "แนะนำแผนการศึกษา", href: "/main/student/suggestion" },
   ];
   return <NavbarLayout datas={studentNav} type="Student" />;
 };

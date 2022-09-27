@@ -11,7 +11,7 @@ const EditTable: React.FC<Props> = ({ onAddClick, funcButton }: Props) => {
     <Table
       Header={
         <tr className="text-fred">
-          <th className="w-[30vw] border border-black">รหัสวิชา</th>
+          <th className="w-1/4 border border-black">รหัสวิชา</th>
           <TableHeader str="ชื่อวิชา" />
         </tr>
       }

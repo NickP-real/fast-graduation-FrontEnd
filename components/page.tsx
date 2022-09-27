@@ -14,8 +14,6 @@ const Page: React.FC<Props> = ({ type, children }: Props) => {
         <div className="container relative mx-auto h-full w-full drop-shadow-lg">
           <Image
             src="/fastgrad.svg"
-            width={200}
-            height={100}
             alt="fast graduation logo"
             layout="fill"
             objectFit="contain"
@@ -27,7 +25,9 @@ const Page: React.FC<Props> = ({ type, children }: Props) => {
 
       <Navbar type={type} />
 
-      <main className="container my-5 mx-auto flex-grow">{children}</main>
+      <main className="container my-5 mx-auto flex-grow px-2 md:px-10">
+        {children}
+      </main>
     </div>
   );
 };

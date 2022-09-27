@@ -17,6 +17,7 @@ module.exports = {
         fbrgreen: "#D0E6A5",
         fpurple: "#CCABD8",
         fyellow: "#FFDD95B5",
+        fbryellow: "#FFE7B4",
       },
     },
   },

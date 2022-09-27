@@ -27,11 +27,53 @@ const DraftEdit: React.FC = () => {
     setModal(true);
   }
 
+  type TableProps = {
+    label: string;
+    content?: string[];
+  };
+
+  const ContentTable: React.FC<TableProps> = ({ label }: TableProps) => {
+    return (
+      <section className="py-6">
+        <h3 className="mb-1">{label}</h3>
+        <DelTable onAddClick={handleOnAddClick} />
+      </section>
+    );
+  };
+
+  type NumberInfoProps = {
+    label: string;
+  };
+
+  const NumberInfo: React.FC<NumberInfoProps> = ({
+    label,
+  }: NumberInfoProps) => {
+    return (
+      <section className="py-6">
+        <h3>{label}</h3>
+        <table className="ml-auto mt-5 border-separate border-spacing-x-3">
+          <tbody>
+            <tr>
+              <td>หน่วยกิจขั้นต่ำ</td>
+              <td>
+                <input
+                  type="text"
+                  className="w-20 border border-black bg-white text-center active:rounded-none"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    );
+  };
+
   return (
     <>
       <CourseSearchModal isOpen={isModal} setIsOpen={setModal} />
       <AdminPage>
-        <div className="w-full border border-black shadow-[25px_40px_40px_-15px_rgba(204,171,216,0.45)]">
+        <h1>จัดการแผนการศึกษา</h1>
+        <div className="my-5 w-full border border-black shadow-[25px_40px_40px_-15px_rgba(204,171,216,0.45)]">
           <header className="flex h-16 text-xl font-extrabold text-fpurple">
             <button
               className={`w-[50vw] tracking-wider ${
@@ -52,62 +94,24 @@ const DraftEdit: React.FC = () => {
           </header>
 
           {!mode && (
-            <form className="px-10">
-              <section>
-                <h3>วิชาแกน (Core)</h3>
-                <DelTable onAddClick={handleOnAddClick} />
-              </section>
-              <hr className="my-5 h-1 border-b-0 bg-fbrred" />
+            <form className="divide-y-2 divide-fred px-10">
+              <ContentTable label="วิชาแกน (Core)" />
+              <ContentTable label="วิชาเลือก (General Elective)" />
 
-              <section>
-                <h3>วิชาเลือก (General Elective)</h3>
-                <DelTable onAddClick={handleOnAddClick} />
-              </section>
-              <hr className="my-5 h-1 border-b-0 bg-fbrred" />
+              <NumberInfo label="วิชาเลือกเสรี (Free Elective)" />
 
-              <section>
-                <h3>วิชาเลือกเสรี (Free Elective)</h3>
-                <table className="ml-auto border-separate border-spacing-x-3">
-                  <tbody>
-                    <tr>
-                      <td>หน่วยกิจขั้นต่ำ</td>
-                      <td>
-                        <input
-                          type="text"
-                          className="w-20 border border-black bg-white text-center active:rounded-none"
-                        />
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </section>
-              <hr className="my-5 h-1 border-b-0 bg-fbrred" />
+              <ContentTable label="วิชาเอกบังคับร่วม (Compulsory)" />
+              <ContentTable label="วิชาเอกเลือก (Major Elective)" />
 
-              <section>
-                <h3>วิชาเอกบังคับร่วม (Compulsory)</h3>
-                <DelTable onAddClick={handleOnAddClick} />
-              </section>
-              <hr className="my-5 h-1 border-b-0 bg-fbrred" />
-
-              <section>
-                <h3>วิชาเอกเลือก (Major Elective)</h3>
-                <DelTable onAddClick={handleOnAddClick} />
-              </section>
-              <hr className="my-5 h-1 border-b-0 bg-fbrred" />
-
-              <section>
-                <h3>วิชาโท (Minor)</h3>
-              </section>
-              <hr className="my-5 h-1 border-b-0 bg-fbrred" />
+              <NumberInfo label="วิชาโท (Minor)" />
+              {/* Div below for divider */}
+              <div></div>
             </form>
           )}
 
           {mode && (
             <form className="px-10">
-              <section>
-                <h3>ปี x เทอม 1</h3>
-                <DelTable onAddClick={handleOnAddClick} />
-              </section>
+              <ContentTable label="ปี x เทอม 1" />
             </form>
           )}
 

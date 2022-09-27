@@ -1,7 +1,7 @@
 import Panel from "components/main/panel";
 import Page from "components/page";
 import PlanListTable from "components/student/table/plan_list_table";
-import Table from "components/student/table/table";
+import Table from "components/table";
 import React from "react";
 
 const Summary: React.FC = () => {

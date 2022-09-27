@@ -13,6 +13,7 @@ const PlanCheckTable: React.FC = () => {
         </tr>
       }
       Content={
+        // TODO: loop for contents and make it clickable to show modal of it own data
         <tr>
           <TableContent str="check" />
           <TableContent str="xxxxxx" />

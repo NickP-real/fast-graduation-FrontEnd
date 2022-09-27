@@ -8,10 +8,10 @@ interface Props {
 export const Table: React.FC<Props> = ({ Header, Content }: Props) => {
   return (
     <table className="w-full table-fixed border-collapse border border-black text-center">
-      <thead className="fast-text h-12 [&>tr]:h-12 [&>tr>td]:border [&>tr>td]:border-black">
+      <thead className="fast-text h-8 md:h-12 [&>tr]:h-8 md:[&>tr]:h-12 [&>tr>td]:border [&>tr>td]:border-black">
         {Header}
       </thead>
-      <tbody className="h-12 font-extrabold text-fred [&>tr]:h-12">
+      <tbody className="font-extrabold text-fred md:h-12 [&>tr]:h-8 md:[&>tr]:h-12">
         {Content}
       </tbody>
     </table>
