@@ -17,11 +17,11 @@ a {
   }
 
   * {
-    @apply box-border;
+    @apply box-border outline-none;
   }
 
   input {
-    @apply rounded bg-white text-fred;
+    @apply rounded border border-black bg-white px-2 text-base text-fred focus:ring-0;
   }
 
   /* input[type="checkbox"] {

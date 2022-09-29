@@ -1,5 +1,5 @@
 import AddButton, { Props as AddButtonProps } from "components/add_button";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Table from "components/table";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
@@ -10,17 +10,16 @@ export type PlanContent = {
 };
 
 type Props = AddButtonProps & {
-  datas: PlanContent[];
+  plans: PlanContent[];
+  setPlans: React.Dispatch<React.SetStateAction<PlanContent[]>>;
 };
 
-const PlanTable: React.FC<Props> = ({ datas, onAddClick }: Props) => {
-  const [planDatas, setPlanDatas] = useState<PlanContent[]>(datas);
-
+const PlanTable: React.FC<Props> = ({ plans, setPlans, onAddClick }: Props) => {
   function handleOnDelClick(pos: number) {
-    const updateDatas: PlanContent[] = planDatas.filter((_, index) => {
+    const updateDatas: PlanContent[] = plans.filter((_, index) => {
       return pos !== index;
     });
-    setPlanDatas(updateDatas);
+    setPlans(updateDatas);
   }
 
   return (
@@ -33,9 +32,8 @@ const PlanTable: React.FC<Props> = ({ datas, onAddClick }: Props) => {
         </tr>
       }
       Content={
-        /* TODO: loop info here */
         <>
-          {planDatas.map(
+          {plans.map(
             ({ courseId, courseName, courseCategory }, index: number) => {
               return (
                 <tr key={courseId}>

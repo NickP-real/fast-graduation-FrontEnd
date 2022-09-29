@@ -18,6 +18,7 @@ module.exports = {
         fpurple: "#CCABD8",
         fyellow: "#FFDD95B5",
         fbryellow: "#FFE7B4",
+        fpink: "#FF5A79",
       },
     },
   },

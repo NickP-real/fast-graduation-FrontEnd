@@ -11,7 +11,7 @@ const AddButton: React.FC<Props> = ({ onAddClick }: Props) => {
       <td>
         <button
           onClick={onAddClick}
-          className="absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center gap-x-1"
+          className="absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center gap-x-1 border-0"
         >
           <PlusCircleIcon className="w-7 stroke-fred stroke-2" />
           <a>เพิ่มวิชา</a>
