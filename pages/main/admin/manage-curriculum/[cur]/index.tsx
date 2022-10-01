@@ -1,9 +1,14 @@
 import Panel from "components/main/panel";
 import { AdminPage } from "components/page";
+import { CurriculumTable } from "components/table/curriculum_table";
+import { useRouter } from "next/router";
 import React from "react";
-import { CurriculumTable } from ".";
 
 const CurriculumEdit: React.FC = () => {
+  const router = useRouter();
+  const { cur } = router.query;
+  const link = `/main/admin/manage-curriculum/${cur?.toString()}/edit`;
+
   function handleOnAdd() {}
   function handleOnSaveClick() {}
   function handleOnCancelClick() {}
@@ -12,7 +17,7 @@ const CurriculumEdit: React.FC = () => {
     <AdminPage>
       <Panel>
         <h2 className="fast-head text-4xl">เพิ่มหลักสูตร</h2>
-        <CurriculumTable handleOnAdd={handleOnAdd} />
+        <CurriculumTable handleOnAdd={handleOnAdd} link={link} />
         <section>
           <form className="fast-text text-xl font-extrabold">
             <table className="table-fixed">

@@ -4,7 +4,7 @@ import { AdminPage } from "components/page";
 import SubmitButton from "components/submit_button";
 import React, { useState } from "react";
 
-const DraftEdit: React.FC = () => {
+const Edit: React.FC = () => {
   const [mode, setMode] = useState<boolean>(false);
   const [isModal, setModal] = useState<boolean>(false);
 
@@ -70,7 +70,7 @@ const DraftEdit: React.FC = () => {
 
   return (
     <>
-      <CourseSearchModal isOpen={isModal} setIsOpen={setModal} />
+      {/* <CourseSearchModal isOpen={isModal} setIsOpen={setModal} /> */}
       <AdminPage>
         <h1>จัดการแผนการศึกษา</h1>
         <div className="my-5 w-full border border-black shadow-[25px_40px_40px_-15px_rgba(204,171,216,0.45)]">
@@ -122,4 +122,4 @@ const DraftEdit: React.FC = () => {
   );
 };
 
-export default DraftEdit;
+export default Edit;
