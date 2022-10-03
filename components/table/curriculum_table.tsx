@@ -3,14 +3,16 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-type CurriculumTableProps = {
+export type CurriculumTableProps = {
   handleOnAdd: () => void;
   link: string;
+  content: string[];
 };
 
 export const CurriculumTable: React.FC<CurriculumTableProps> = ({
   handleOnAdd,
   link,
+  content,
 }: CurriculumTableProps) => {
   return (
     <table
@@ -23,16 +25,18 @@ export const CurriculumTable: React.FC<CurriculumTableProps> = ({
       </thead>
       <tbody className="text-fred [&>tr]:h-12 [&>tr>td]:px-4 [&>tr>td]:font-extrabold">
         {/* TODO: loop here for curriculum, make it link */}
-        <tr>
-          <td className="relative">
-            <Link href={`${link}`}>วท.บ</Link>
-            <DelButton
-              onClick={() => {
-                return;
-              }}
-            />
-          </td>
-        </tr>
+        {content.map((data, index) => (
+          <tr key={index}>
+            <td className="relative">
+              <Link href={`${link}/${data}`}>{data}</Link>
+              <DelButton
+                onClick={() => {
+                  return;
+                }}
+              />
+            </td>
+          </tr>
+        ))}
         <tr>
           <td className="relative">
             <button

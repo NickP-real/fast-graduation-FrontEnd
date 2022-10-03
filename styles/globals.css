@@ -28,6 +28,10 @@ a {
     @apply h-4 w-4 cursor-pointer appearance-none rounded-sm border bg-white align-middle transition duration-200 checked:border-green-400 checked:bg-green-400 focus:outline-none;
   }
 */
+  label {
+    @apply inline-block;
+  }
+
   h1 {
     @apply fast-head text-3xl;
   }

@@ -9,26 +9,33 @@ interface Props {
 const Page: React.FC<Props> = ({ type, children }: Props) => {
   return (
     <div className="flex min-h-screen flex-col overflow-y-auto">
-      <div className="relative h-20">
-        <div className="gradient absolute top-0 h-full w-full blur"></div>
-        <div className="container relative mx-auto h-full w-full drop-shadow-lg">
-          <Image
-            src="/fastgrad.svg"
-            alt="fast graduation logo"
-            layout="fill"
-            objectFit="contain"
-            objectPosition="left"
-            className="object-contain"
-          />
-        </div>
-      </div>
-
+      <Header />
       <Navbar type={type} />
-
       <main className="container my-5 mx-auto flex-grow px-2 md:px-10">
         {children}
       </main>
     </div>
+  );
+};
+
+const Header: React.FC = () => {
+  return (
+    <header className="relative h-20">
+      <div
+        className="gradient absolute top-0 h-full w-full blur"
+        aria-hidden={true}
+      />
+      <div className="mx-2 h-full drop-shadow-lg md:mx-5">
+        <Image
+          src="/fastgrad.svg"
+          alt="fast graduation logo"
+          layout="fill"
+          objectFit="contain"
+          objectPosition="left"
+          className="object-contain"
+        />
+      </div>
+    </header>
   );
 };
 

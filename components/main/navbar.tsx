@@ -32,7 +32,6 @@ const NavbarLayout: React.FC<LayoutProps> = ({ datas, type }: LayoutProps) => {
 const AdminNavbar: React.FC = () => {
   const adminNav: NavbarData[] = [
     { value: "จัดการหลักสูตร", href: "/main/admin/manage-curriculum" },
-    { value: "จัดการข้อมูลแผนการศึกษา", href: "/main/admin/" },
     {
       value: "จัดการข้อมูลรายวิชาที่เปิดสอน",
       href: "/main/admin/manage-course",

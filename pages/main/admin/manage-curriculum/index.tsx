@@ -1,5 +1,5 @@
 import Panel from "components/main/panel";
-import AddCurriculumModal from "components/modal/add_curriculum_modal";
+import AddCurriculumModal from "components/modal/add_curriculum";
 import { AdminPage } from "components/page";
 import { CurriculumTable } from "components/table/curriculum_table";
 import React, { useState } from "react";
@@ -17,11 +17,15 @@ const ManageCurriculum: React.FC = () => {
 
   return (
     <>
-      <AddCurriculumModal open={isAddCurModal} onClose={setIsAddCurModal} />
+      <AddCurriculumModal open={isAddCurModal} setOpen={setIsAddCurModal} />
       <AdminPage>
         <Panel>
           <h2 className="fast-head text-4xl">จัดการหลักสูตร</h2>
-          <CurriculumTable handleOnAdd={handleOnAdd} link={link} />
+          <CurriculumTable
+            handleOnAdd={handleOnAdd}
+            link={link}
+            content={content}
+          />
         </Panel>
       </AdminPage>
     </>

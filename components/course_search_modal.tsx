@@ -26,12 +26,12 @@ const CourseSearchModal: React.FC<Props> = ({
 
   const filterdDatas: PlanContent[] = query
     ? datas.filter((data) => {
-        const id: string = data.courseId;
-        const name: string = data.courseName;
-        const category: string = data.courseCategory;
-        const searchStr: string = `${id}${name}${category}`.toLowerCase();
-        return searchStr.includes(query.toLowerCase().replace(/\s+/g, ""));
-      })
+      const id: string = data.courseId;
+      const name: string = data.courseName;
+      const category: string = data.courseCategory;
+      const searchStr: string = `${id}${name}${category}`.toLowerCase();
+      return searchStr.includes(query.toLowerCase().replace(/\s+/g, ""));
+    })
     : [];
 
   function handleOnInputChange(e: ChangeEvent<HTMLInputElement>) {
@@ -76,9 +76,8 @@ const CourseSearchModal: React.FC<Props> = ({
                   <Combobox.Option key={data.courseId} value={data}>
                     {({ active }) => (
                       <div
-                        className={`${
-                          active ? "bg-fyellow" : "bg-white"
-                        } space-x-1 px-4 py-2`}
+                        className={`${active ? "bg-fyellow" : "bg-white"
+                          } space-x-1 px-4 py-2`}
                       >
                         <span>{data.courseId}</span>
                         <span>{data.courseName}</span>
