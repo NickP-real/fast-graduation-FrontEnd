@@ -28,6 +28,10 @@ a {
     @apply h-4 w-4 cursor-pointer appearance-none rounded-sm border bg-white align-middle transition duration-200 checked:border-green-400 checked:bg-green-400 focus:outline-none;
   }
 */
+  textarea {
+    @apply rounded border border-black bg-white;
+  }
+
   label {
     @apply inline-block;
   }
@@ -57,7 +61,7 @@ a {
   }
 
   .fast-bg {
-    @apply bg-gradient-to-b from-fred to-fpurple/[85]
+    @apply bg-gradient-to-b from-fred to-fpurple/[85];
   }
 
   .fast-text {

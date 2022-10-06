@@ -3,8 +3,9 @@ import { AdminPage } from "components/page";
 import React from "react";
 import SearchTable from "components/admin/table/search_table";
 import SearchBar from "components/search_bar";
+import { NextPage } from "next";
 
-const ManageCourse: React.FC = () => {
+const ManageCourse: NextPage = () => {
   return (
     <AdminPage>
       <h2 className="fast-text text-3xl">จัดการข้อมูลรายวิชาที่เปิดสอน</h2>
