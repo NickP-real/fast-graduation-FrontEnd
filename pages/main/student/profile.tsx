@@ -1,8 +1,9 @@
 import Panel from "components/main/panel";
 import Page from "components/page";
+import { NextPage } from "next";
 import React from "react";
 
-const Profile: React.FC = () => {
+const Profile: NextPage = () => {
   return (
     <Page type="Student">
       <main className="container my-5 mx-auto flex w-full gap-x-5">

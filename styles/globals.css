@@ -56,6 +56,10 @@ a {
     );
   }
 
+  .fast-bg {
+    @apply bg-gradient-to-b from-fred to-fpurple/[85]
+  }
+
   .fast-text {
     @apply bg-gradient-to-b from-fred to-fpurple/[85] bg-clip-text font-extrabold text-transparent;
   }

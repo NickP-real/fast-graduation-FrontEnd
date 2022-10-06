@@ -1,3 +1,5 @@
+import { Listbox } from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import Panel from "components/main/panel";
 import { AdminPage } from "components/page";
 import {
@@ -5,7 +7,8 @@ import {
   CurriculumTableProps,
 } from "components/table/curriculum_table";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
+import ListBox, { ListboxProps } from "./listbox";
 
 type Props = CurriculumTableProps & {
   headerText: "แก้ไขหลักสูตร" | "เพิ่มหลักสูตร";
@@ -18,11 +21,15 @@ const EditCurriculumPage: React.FC<Props> = ({
   link,
 }: Props) => {
   const router = useRouter();
+  const studyYear: string[] = ["ภาคเรียนที่ 1", "ภาคเรียนที่ 2"];
+
+  const [startYear, setStartYear] = useState<string>(studyYear[0]);
+  const [endYear, setEndYear] = useState<string>(studyYear[1]);
   // const link = `/main/admin/manage-curriculum/${cur?.toString()}/edit`;
   // const content: string[] = ["A", "B", "C"];
 
   // function handleOnAdd() { }
-  function handleOnSaveClick() { }
+  function handleOnSaveClick() {}
   function handleOnCancelClick() {
     router.back();
   }
@@ -36,34 +43,39 @@ const EditCurriculumPage: React.FC<Props> = ({
           link={link}
           content={content}
         />
-        <form className="fast-text my-4 max-w-max text-xl font-extrabold md:space-y-2">
-          <section className="flex flex-col gap-y-1 md:flex-row md:gap-y-0 md:space-x-2">
-            <div>
-              <label htmlFor="start_date" className="w-28 md:w-14">
-                เริ่มต้น
-              </label>
-              <input type="date" id="start_date" className="md:mx-3" />
+        <form className="fast-text my-4 max-w-max items-center space-y-2 text-xl font-extrabold md:space-y-2">
+          <section className="flex flex-col gap-y-1 md:flex-row md:gap-y-0 md:space-x-4">
+            <div className="flex md:space-x-3">
+              <h2 className="w-28 md:w-14">เริ่มต้น</h2>
+              {/* <input type="date" id="start_date" className="md:mx-3" /> */}
+              <YearListBox
+                contents={studyYear}
+                setValue={setStartYear}
+                value={startYear}
+              />
             </div>
             <div>
               <label htmlFor="start_year" className="w-28 md:w-24">
                 ปีการศึกษา
               </label>
-              <input type="number" id="start_date" className="w-28 md:mx-3" />
+              <input type="number" id="start_date" className="w-32 md:mx-3" />
             </div>
           </section>
 
-          <section className="flex flex-col gap-y-1 md:flex-row md:gap-y-0 md:space-x-2">
-            <div>
-              <label htmlFor="end_date" className="w-28 md:w-14">
-                สิ้นสุด
-              </label>
-              <input type="date" id="end_date" className="md:mx-3" />
+          <section className="flex flex-col gap-y-1 md:flex-row md:gap-y-0 md:space-x-4">
+            <div className="flex md:space-x-3">
+              <h2 className="w-28 md:w-14">สิ้นสุด</h2>
+              <YearListBox
+                contents={studyYear}
+                setValue={setEndYear}
+                value={endYear}
+              />
             </div>
             <div>
               <label htmlFor="end_year" className="w-28 md:w-24">
                 ปีการศึกษา
               </label>
-              <input type="number" id="end_year" className="w-28 md:mx-3" />
+              <input type="number" id="end_year" className="w-32 md:mx-3" />
             </div>
           </section>
         </form>
@@ -74,6 +86,14 @@ const EditCurriculumPage: React.FC<Props> = ({
       </Panel>
     </AdminPage>
   );
+};
+
+const YearListBox: React.FC<ListboxProps> = ({
+  contents,
+  setValue: setYear,
+  value: year,
+}: ListboxProps) => {
+  return <ListBox contents={contents} setValue={setYear} value={year} />;
 };
 
 type ActionProps = {

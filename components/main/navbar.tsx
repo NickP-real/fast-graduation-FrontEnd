@@ -1,35 +1,108 @@
-import React from "react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
+import React, { useState } from "react";
 
 interface NavbarData {
   value: string;
   href: string;
 }
 
-interface LayoutProps {
-  datas: NavbarData[];
-  type: "Student" | "Admin";
-}
+type Showing = {
+  isShow: boolean;
+};
 
-const NavbarLayout: React.FC<LayoutProps> = ({ datas, type }: LayoutProps) => {
+type LayoutProps = NavbarType &
+  Showing & {
+    datas: NavbarData[];
+  };
+
+const NavbarLayout: React.FC<LayoutProps> = ({
+  datas,
+  type,
+  isShow,
+}: LayoutProps) => {
   return (
-    <>
-      <ul className="flex flex-grow gap-x-1 md:gap-x-8">
+    <nav
+      className={`my-auto w-max transition-all duration-300 ease-in md:z-auto md:flex md:w-full md:items-center md:justify-between md:opacity-100 ${
+        isShow ? "h-24 opacity-100" : "h-0 opacity-0"
+      } md:h-max `}
+    >
+      <ul className="fast-text flex flex-col md:flex-row md:gap-x-8">
         {datas.map((data) => {
           return (
             <Link href={data.href} key={data.value}>
-              <a>{data.value}</a>
+              <a className="my-1 md:my-0">{data.value}</a>
             </Link>
           );
         })}
+        <li className="my-1 md:my-0 md:hidden">ออกจากระบบ</li>
       </ul>
-      <LogoutAndProfile type={type} />
-    </>
+
+      <div className="hidden space-x-2 md:flex md:h-max md:items-center md:opacity-100">
+        <ProfileButton type={type} />
+        <p className="fast-text">ออกจากระบบ</p>
+      </div>
+    </nav>
   );
 };
 
-const AdminNavbar: React.FC = () => {
+const ProfileButton: React.FC<NavbarType> = ({ type }: NavbarType) => {
+  const href: string =
+    type === "Student" ? "/main/student/profile" : "/main/admin/profile";
+  return (
+    <Link href={href} passHref>
+      <a className="flex">
+        <Image
+          alt="profile"
+          src="/profile.svg"
+          width={64 / 2}
+          height={64 / 2}
+        />
+      </a>
+    </Link>
+  );
+};
+
+type MobileIcon = NavbarType &
+  Showing & {
+    onClick: () => void;
+  };
+
+const MobileIcon: React.FC<MobileIcon> = ({
+  type,
+  isShow,
+  onClick,
+}: MobileIcon) => {
+  return (
+    <div className="flex items-center justify-end space-x-2 md:hidden">
+      <ProfileButton type={type} />
+      {!isShow ? (
+        <Bars3Icon
+          className="fast-bg h-8 w-8 rounded-full p-1 text-white"
+          onClick={onClick}
+        />
+      ) : (
+        <XMarkIcon
+          className="fast-bg h-8 w-8 rounded-full p-1 text-white"
+          onClick={onClick}
+        />
+      )}
+    </div>
+  );
+};
+
+type NavbarType = {
+  type: "Student" | "Admin";
+};
+
+export const Navbar: React.FC<NavbarType> = ({ type }: NavbarType) => {
+  const [isShow, setIsShow] = useState<boolean>(false);
+
+  function handleOnMobileIconClick() {
+    setIsShow(!isShow);
+  }
+
   const adminNav: NavbarData[] = [
     { value: "จัดการหลักสูตร", href: "/main/admin/manage-curriculum" },
     {
@@ -37,58 +110,28 @@ const AdminNavbar: React.FC = () => {
       href: "/main/admin/manage-course",
     },
   ];
-  return <NavbarLayout datas={adminNav} type="Admin" />;
-};
 
-const StudentNavbar: React.FC = () => {
   const studentNav: NavbarData[] = [
     { value: "จัดการข้อมูลการเรียน", href: "/main/student/manage-course" },
     { value: "แนะนำแผนการศึกษา", href: "/main/student/suggestion" },
   ];
-  return <NavbarLayout datas={studentNav} type="Student" />;
-};
 
-interface LogoutAndProfileProps {
-  type: "Student" | "Admin";
-}
-
-const LogoutAndProfile: React.FC<LogoutAndProfileProps> = ({
-  type,
-}: LogoutAndProfileProps) => {
-  const href: string =
-    type === "Student" ? "/main/student/profile" : "/main/admin/profile";
-  return (
-    <div className="flex items-center gap-x-3">
-      <Link href={href} passHref>
-        <a className="flex items-center justify-center">
-          <Image
-            alt="profile"
-            src="/profile.svg"
-            width={69 / 2}
-            height={69 / 2}
-          />
-        </a>
-      </Link>
-      <h3>ออกจากระบบ</h3>
-    </div>
-  );
-};
-
-interface NavbarType {
-  type: "Student" | "Admin";
-}
-
-export const Navbar: React.FC<NavbarType> = ({ type }: NavbarType) => {
   function Navtype(type: string) {
     if (type === "Student") {
-      return <StudentNavbar />;
+      return <NavbarLayout datas={studentNav} type="Student" isShow={isShow} />;
     } else {
-      return <AdminNavbar />;
+      return <NavbarLayout datas={adminNav} type="Admin" isShow={isShow} />;
     }
   }
+
   return (
-    <header className="relative h-16 bg-white">
-      <div className="fast-text container mx-auto flex h-full items-center justify-between text-sm md:text-xl">
+    <header className="bg-white">
+      <div className="container mx-auto px-4 py-4 text-base md:flex md:px-0">
+        <MobileIcon
+          type={type}
+          onClick={handleOnMobileIconClick}
+          isShow={isShow}
+        />
         {Navtype(type)}
       </div>
       <div className="container mx-auto h-2 bg-gradient-to-r from-fgreen to-fpurple"></div>
