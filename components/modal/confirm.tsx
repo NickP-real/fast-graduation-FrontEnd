@@ -7,7 +7,7 @@ type Props = ModalProps & {
 
 const ConfirmModal: React.FC<Props> = ({ open, setOpen, onConfirm }: Props) => {
   return (
-    <Modal title="Confirmation">
+    <Modal title="Confirmation" open={open} setOpen={setOpen}>
       <p>Are you sure you want to do this?</p>
       <div>
         <button>Yes</button>
