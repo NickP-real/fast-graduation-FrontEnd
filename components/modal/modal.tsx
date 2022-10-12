@@ -39,9 +39,7 @@ export const Modal: React.FC<Props> = ({
           ref={focusRef}
         >
           <CloseButton onClick={handleOnCloseClick} />
-          <Dialog.Title className="mb-2">
-            <h2 className="font-extrabold">{title}</h2>
-          </Dialog.Title>
+          <Dialog.Title className="mb-2 font-extrabold">{title}</Dialog.Title>
           {children}
         </Dialog.Panel>
       </div>

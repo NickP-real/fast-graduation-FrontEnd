@@ -1,28 +1,43 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import EditTable from "./edit_table";
-import FuncButton from "../func_button";
-import { PencilSquareIcon } from "@heroicons/react/24/outline";
+import { EditButton } from "components/button";
+import { PlanContent } from "components/student/table/plan_table";
 
-const SearchTable: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
+type Props = {
+  plans: PlanContent[];
+  setPlans: Dispatch<SetStateAction<PlanContent[]>>;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+};
 
-  function handleOnAddClick(e: React.MouseEvent) {
-    e.preventDefault();
+const SearchTable: React.FC<Props> = ({
+  plans,
+  setPlans,
+  setIsOpen,
+}: Props) => {
+  function handleOnAddClick() {
     setIsOpen(true);
+  }
+
+  function handleOnEditClick(index: number) {
+    console.log(plans[index]);
   }
 
   return (
     <EditTable
-      onAddClick={() => handleOnAddClick}
-      funcButton={
-        <FuncButton
-          icon={<PencilSquareIcon className="h-5" />}
-          onClick={() => {
-            return;
-          }}
-          textIcon="แก้ไข"
-        />
-      }
+      onClick={handleOnAddClick}
+      contents={plans.map(
+        ({ courseId, courseName }: PlanContent, index: number) => {
+          return {
+            texts: [courseId, courseName],
+            components: [
+              <EditButton
+                key={courseId + courseName + index}
+                onClick={() => handleOnEditClick(index)}
+              />,
+            ],
+          };
+        }
+      )}
     />
   );
 };

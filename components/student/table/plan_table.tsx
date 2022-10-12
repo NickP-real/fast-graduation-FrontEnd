@@ -1,7 +1,6 @@
-import AddButton, { Props as AddButtonProps } from "components/add_button";
 import React from "react";
-import Table from "components/table";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import Table, { TableContent } from "components/table";
+import { DelButton, AddButton, ButtonProps } from "components/button";
 
 export type PlanContent = {
   courseId: string;
@@ -9,12 +8,27 @@ export type PlanContent = {
   courseCategory: string;
 };
 
-type Props = AddButtonProps & {
+type Props = ButtonProps & {
   plans: PlanContent[];
   setPlans: React.Dispatch<React.SetStateAction<PlanContent[]>>;
 };
 
-const PlanTable: React.FC<Props> = ({ plans, setPlans, onAddClick }: Props) => {
+const PlanTable: React.FC<Props> = ({ plans, setPlans, onClick }: Props) => {
+  const headers: string[] = ["รหัสวิชา", "ชื่อวิชา", "หมวดหมู่", "Action"];
+  const modifiedContents: TableContent[] = plans.map(
+    ({ courseId, courseName, courseCategory }, index: number) => {
+      return {
+        texts: [courseId, courseName, courseCategory],
+        components: [
+          <DelButton
+            key={courseId + courseName}
+            onClick={() => handleOnDelClick(index)}
+          />,
+        ],
+      };
+    }
+  );
+
   function handleOnDelClick(pos: number) {
     const updateDatas: PlanContent[] = plans.filter((_, index) => {
       return pos !== index;
@@ -24,49 +38,10 @@ const PlanTable: React.FC<Props> = ({ plans, setPlans, onAddClick }: Props) => {
 
   return (
     <Table
-      Header={
-        <tr>
-          <th className="border border-black">รหัสวิชา</th>
-          <th className="border border-black">ชื่อวิชา</th>
-          <th className="border border-black">หมวดหมู่</th>
-        </tr>
-      }
-      Content={
-        <>
-          {plans.map(
-            ({ courseId, courseName, courseCategory }, index: number) => {
-              return (
-                <tr key={courseId}>
-                  <td className="border border-black">{courseId}</td>
-                  <td className="border border-black">{courseName}</td>
-                  <td className="relative border border-black">
-                    {courseCategory}
-                    <DelButton onDelClick={() => handleOnDelClick(index)} />
-                  </td>
-                </tr>
-              );
-            }
-          )}
-          <AddButton onAddClick={onAddClick} />
-        </>
-      }
+      Header={headers}
+      Content={modifiedContents}
+      speacialRow={<AddButton onClick={onClick} />}
     />
-  );
-};
-
-type DelProps = {
-  onDelClick: () => void;
-};
-
-const DelButton: React.FC<DelProps> = ({ onDelClick }: DelProps) => {
-  return (
-    <button
-      className="absolute right-0 top-0 mr-5 flex translate-y-1/2 items-center gap-x-1"
-      onClick={onDelClick}
-    >
-      <XMarkIcon className="h-5 stroke-2" />
-      ลบ
-    </button>
   );
 };
 

@@ -1,26 +1,25 @@
-import { XMarkIcon } from "@heroicons/react/24/outline";
 import React from "react";
-import FuncButton from "../func_button";
 import EditTable from "./edit_table";
-import { Props as AddButtonProps } from "components/add_button";
+import { ButtonProps, DelButton } from "components/button";
 
-type Props = AddButtonProps;
+type Props = ButtonProps;
 
-const DelTable: React.FC<Props> = ({ onAddClick }: Props) => {
-  return (
-    <EditTable
-      onAddClick={onAddClick}
-      funcButton={
-        <FuncButton
-          icon={<XMarkIcon className="h-5 stroke-2" />}
-          textIcon="ลบ"
+const DelTable: React.FC<Props> = ({ onClick }: Props) => {
+  const contents = [
+    {
+      texts: ["206111", "calculus 1"],
+      components: [
+        <DelButton
+          key="test"
           onClick={() => {
             return;
           }}
-        />
-      }
-    />
-  );
+        />,
+      ],
+    },
+  ];
+
+  return <EditTable onClick={onClick} contents={contents} />;
 };
 
 export default DelTable;

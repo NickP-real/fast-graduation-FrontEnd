@@ -1,37 +1,10 @@
 import React from "react";
-import Table, { TableContent, TableHeader } from "components/table";
+import Table from "components/table";
 
 const PlanListTable: React.FC = () => {
-  return (
-    <Table
-      Header={
-        <tr>
-          <TableHeader str="รหัสวิชา" />
-          <TableHeader str="ชื่อวิชา" />
-          <TableHeader str="หมวดหมู่" />
-        </tr>
-      }
-      Content={
-        <>
-          <tr>
-            <TableContent str="xxxxxx" />
-            <TableContent str="xxxxxx" />
-            <TableContent str="xxxxxx" />
-          </tr>
-          <tr>
-            <TableContent str="xxxxxx" />
-            <TableContent str="xxxxxx" />
-            <TableContent str="xxxxxx" />
-          </tr>
-          <tr>
-            <TableContent str="xxxxxx" />
-            <TableContent str="xxxxxx" />
-            <TableContent str="xxxxxx" />
-          </tr>
-        </>
-      }
-    />
-  );
+  const headers: string[] = ["รหัสวิชา", "ชื่อวิชา", "หมวดหมู่"];
+  const contents = [{ texts: ["xxxxxx", "xxxxxx", "xxxxxx"] }];
+  return <Table Header={headers} Content={contents} />;
 };
 
 export default PlanListTable;

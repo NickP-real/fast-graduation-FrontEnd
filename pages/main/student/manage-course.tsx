@@ -8,7 +8,7 @@ const ManageCourse: React.FC = () => {
   const datas: PlanContent[] = [
     {
       courseId: "111111",
-      courseName: "test",
+      courseName: "test\ntest",
       courseCategory: "also test",
     },
     {
@@ -44,7 +44,7 @@ const ManageCourse: React.FC = () => {
             <PlanTable
               plans={plans}
               setPlans={setPlans}
-              onAddClick={handleOnAddClick}
+              onClick={handleOnAddClick}
             />
             <button className="rounded-xl bg-[#FFDD95B5] px-4 py-2 text-xl font-extrabold text-[#fa897b] shadow-md">
               ตรวจสอบการเลือก

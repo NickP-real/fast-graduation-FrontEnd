@@ -1,5 +1,3 @@
-import { Listbox } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import Panel from "components/main/panel";
 import { AdminPage } from "components/page";
 import {
@@ -7,15 +5,14 @@ import {
   CurriculumTableProps,
 } from "components/table/curriculum_table";
 import { useRouter } from "next/router";
-import React, { Dispatch, SetStateAction, useState } from "react";
-import ListBox, { ListboxProps } from "./listbox";
+import React, { useState } from "react";
 
 type Props = CurriculumTableProps & {
   headerText: "แก้ไขหลักสูตร" | "เพิ่มหลักสูตร";
 };
 
 const EditCurriculumPage: React.FC<Props> = ({
-  content,
+  contents,
   handleOnAdd,
   headerText,
   link,
@@ -28,8 +25,18 @@ const EditCurriculumPage: React.FC<Props> = ({
   // const link = `/main/admin/manage-curriculum/${cur?.toString()}/edit`;
   // const content: string[] = ["A", "B", "C"];
 
+  function handleOnStartYearChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    setStartYear(e.target.value);
+  }
+
+  function handleOnEndYearChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    setEndYear(e.target.value);
+  }
+
   // function handleOnAdd() { }
-  function handleOnSaveClick() {}
+  function handleOnSaveClick() {
+    return;
+  }
   function handleOnCancelClick() {
     router.back();
   }
@@ -38,47 +45,65 @@ const EditCurriculumPage: React.FC<Props> = ({
     <AdminPage>
       <Panel>
         <h2 className="fast-head text-4xl">{headerText}</h2>
-        <CurriculumTable
-          handleOnAdd={handleOnAdd}
-          link={link}
-          content={content}
-        />
-        <form className="fast-text my-4 max-w-max items-center space-y-2 text-xl font-extrabold md:space-y-2">
-          <section className="flex flex-col gap-y-1 md:flex-row md:gap-y-0 md:space-x-4">
-            <div className="flex md:space-x-3">
-              <h2 className="w-28 md:w-14">เริ่มต้น</h2>
-              {/* <input type="date" id="start_date" className="md:mx-3" /> */}
-              <YearListBox
-                contents={studyYear}
-                setValue={setStartYear}
+
+        <div className="my-6">
+          <CurriculumTable
+            handleOnAdd={handleOnAdd}
+            link={link}
+            contents={contents}
+          />
+        </div>
+
+        <form className="fast-text my-4 max-w-max items-center space-y-1 text-xl font-extrabold md:space-y-2">
+          <section className="flex flex-col gap-y-1 md:flex-row md:gap-y-0 md:space-x-2">
+            <div>
+              <label className="w-28 md:w-14" htmlFor="start_year">
+                เริ่มต้น
+              </label>
+              <YearListbox
+                name="start_year"
+                id="start_year"
                 value={startYear}
+                onChange={handleOnStartYearChange}
+                contents={studyYear}
               />
             </div>
+
             <div>
               <label htmlFor="start_year" className="w-28 md:w-24">
                 ปีการศึกษา
               </label>
-              <input type="number" id="start_date" className="w-32 md:mx-3" />
+              <input type="number" id="start_date" className="w-36 md:mx-3" />
             </div>
           </section>
 
-          <section className="flex flex-col gap-y-1 md:flex-row md:gap-y-0 md:space-x-4">
-            <div className="flex md:space-x-3">
-              <h2 className="w-28 md:w-14">สิ้นสุด</h2>
-              <YearListBox
-                contents={studyYear}
-                setValue={setEndYear}
+          <section className="flex flex-col gap-y-1 md:flex-row md:gap-y-0 md:space-x-2">
+            <div>
+              <label className="w-28 md:w-14" htmlFor="end_year">
+                สิ้นสุด
+              </label>
+              <YearListbox
+                name="end_year"
+                id="end_year"
                 value={endYear}
+                onChange={handleOnEndYearChange}
+                contents={studyYear}
               />
             </div>
+
             <div>
               <label htmlFor="end_year" className="w-28 md:w-24">
                 ปีการศึกษา
               </label>
-              <input type="number" id="end_year" className="w-32 md:mx-3" />
+              <input
+                type="number"
+                id="end_year"
+                className="w-36 text-center md:mx-3"
+              />
             </div>
           </section>
         </form>
+
         <ActionButton
           onSaveClick={handleOnSaveClick}
           onCancelClick={handleOnCancelClick}
@@ -88,12 +113,36 @@ const EditCurriculumPage: React.FC<Props> = ({
   );
 };
 
-const YearListBox: React.FC<ListboxProps> = ({
+type ListboxProps = {
+  name: string;
+  id: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  contents: string[];
+};
+
+const YearListbox: React.FC<ListboxProps> = ({
+  name,
+  id,
+  value,
+  onChange,
   contents,
-  setValue: setYear,
-  value: year,
 }: ListboxProps) => {
-  return <ListBox contents={contents} setValue={setYear} value={year} />;
+  return (
+    <select
+      name={name}
+      id={id}
+      className="w-36 text-fred md:mx-3"
+      value={value}
+      onChange={onChange}
+    >
+      {contents.map((item) => (
+        <option key={item} value={item}>
+          {item}
+        </option>
+      ))}
+    </select>
+  );
 };
 
 type ActionProps = {

@@ -1,6 +1,6 @@
 import Panel from "components/main/panel";
 import Page from "components/page";
-import PlanCheckTable from "components/student/table/plan_check_table";
+import PlanListTable from "components/student/table/plan_list_table";
 
 const Suggestion: React.FC = () => {
   return (
@@ -9,16 +9,16 @@ const Suggestion: React.FC = () => {
       <div className="flex flex-col gap-y-6">
         <Panel>
           <h2 className="fast-head mb-6 text-4xl">ปี x เทอม 1</h2>
-          <PlanCheckTable />
+          <PlanListTable />
         </Panel>
         <Panel>
           <h2 className="fast-head mb-6 text-4xl">ปี x เทอม 2</h2>
-          <PlanCheckTable />
+          <PlanListTable />
         </Panel>
 
         <section className="mx-auto flex gap-x-10">
-          <ConfirmButton textColor="purple" bgColor="green" text="บันทึก" />
-          <ConfirmButton textColor="red" bgColor="yellow" text="แก้ไข" />
+          <ConfirmButton textColor="purple" bgColor="green" text="เสร็จสิ้น" />
+          <ConfirmButton textColor="black" bgColor="blue" text="พิมพ์" />
         </section>
       </div>
     </Page>
@@ -27,8 +27,8 @@ const Suggestion: React.FC = () => {
 
 type ButtonProps = {
   text: string;
-  textColor: "purple" | "red";
-  bgColor: "green" | "yellow";
+  textColor: "purple" | "black";
+  bgColor: "green" | "blue";
 };
 
 const ConfirmButton: React.FC<ButtonProps> = ({
@@ -38,10 +38,12 @@ const ConfirmButton: React.FC<ButtonProps> = ({
 }: ButtonProps) => {
   return (
     <button
-      className={`h-12 w-32 rounded-[32px] ${
-        textColor === "purple" ? "text-fpurple" : "texp-fred"
+      className={`h-12 w-32 rounded-lg ${
+        textColor === "purple" ? "text-fpurple" : "text-fblack"
       } ${
-        bgColor == "green" ? "bg-fbrgreen" : "bg-fbryellow"
+        bgColor == "green"
+          ? "bg-fbrgreen/70 hover:bg-fbrgreen"
+          : "bg-fdblue/70 hover:bg-fdblue"
       } text-center text-xl font-extrabold shadow-md`}
     >
       {text}

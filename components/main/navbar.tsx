@@ -126,7 +126,7 @@ export const Navbar: React.FC<NavbarType> = ({ type }: NavbarType) => {
 
   return (
     <header className="bg-white">
-      <div className="container mx-auto px-4 py-4 text-base md:flex md:px-0">
+      <div className="container mx-auto px-4 py-4 text-base md:flex">
         <MobileIcon
           type={type}
           onClick={handleOnMobileIconClick}

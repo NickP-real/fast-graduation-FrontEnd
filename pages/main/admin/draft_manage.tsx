@@ -21,7 +21,7 @@ const DraftManage: NextPage = () => {
         <h1>จัดการรายวิชา</h1>
         <Panel>
           <form className="flex flex-col items-center justify-between space-y-4">
-            <main className="space-y-4">
+            <main className="space-y-6">
               <section className="space-y-2 [&_label]:w-32 [&_label]:font-bold">
                 <div>
                   <label htmlFor="course_id">รหัสวิชา</label>
@@ -71,7 +71,7 @@ const DraftManage: NextPage = () => {
 
               <section>
                 <h2 className="font-bold">เงื่อนไข</h2>
-                <div className="mx-auto w-48 space-y-2">
+                <div className="mx-auto w-52 space-y-2">
                   <div className="space-x-2">
                     <input type="checkbox" id="study_year" />
                     <label htmlFor="study_year">นักศึกษาชั้นปีที่</label>
@@ -92,11 +92,11 @@ const DraftManage: NextPage = () => {
               </section>
             </main>
 
-            <section>
+            <section className="my-2 w-full px-4">
               <h2 className="font-bold">วิชาที่พ่าน</h2>
               {/* TODO: iterate here */}
-              <div>
-                <h3>1 กลุ่มในต่อไปนี้</h3>
+              <div className="my-2">
+                <h3 className="my-2">1 กลุ่มในต่อไปนี้</h3>
                 <DelTable onAddClick={handleOnAddClick} />
               </div>
             </section>

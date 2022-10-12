@@ -26,12 +26,12 @@ const CourseSearchModal: React.FC<Props> = ({
 
   const filterdDatas: PlanContent[] = query
     ? datas.filter((data) => {
-      const id: string = data.courseId;
-      const name: string = data.courseName;
-      const category: string = data.courseCategory;
-      const searchStr: string = `${id}${name}${category}`.toLowerCase();
-      return searchStr.includes(query.toLowerCase().replace(/\s+/g, ""));
-    })
+        const id: string = data.courseId;
+        const name: string = data.courseName;
+        const category: string = data.courseCategory;
+        const searchStr: string = `${id}${name}${category}`.toLowerCase();
+        return searchStr.includes(query.toLowerCase().replace(/\s+/g, ""));
+      })
     : [];
 
   function handleOnInputChange(e: ChangeEvent<HTMLInputElement>) {
@@ -65,7 +65,7 @@ const CourseSearchModal: React.FC<Props> = ({
               <MagnifyingGlassIcon className="h-6 w-6 stroke-2" />
               <Combobox.Input
                 onChange={handleOnInputChange}
-                className="ml-2 h-12 w-full border-0 bg-transparent text-lg placeholder-fred focus:outline-none"
+                className="ml-2 h-12 w-full border-0 bg-transparent text-lg placeholder-fred focus:outline-none focus:ring-0"
                 placeholder="Search Course..."
               />
             </div>
@@ -76,8 +76,9 @@ const CourseSearchModal: React.FC<Props> = ({
                   <Combobox.Option key={data.courseId} value={data}>
                     {({ active }) => (
                       <div
-                        className={`${active ? "bg-fyellow" : "bg-white"
-                          } space-x-1 px-4 py-2`}
+                        className={`${
+                          active ? "bg-fyellow" : "bg-white"
+                        } space-x-1 px-4 py-2`}
                       >
                         <span>{data.courseId}</span>
                         <span>{data.courseName}</span>

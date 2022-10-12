@@ -1,13 +1,17 @@
-import { PencilSquareIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  PencilSquareIcon,
+  PlusCircleIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 import React, { ReactNode } from "react";
 
-type ButtonProps = {
+export type ButtonProps = {
   onClick: () => void;
-  color?: string;
 };
 type Props = ButtonProps & {
   icon: ReactNode;
   textIcon: string;
+  color?: string;
 };
 
 const FuncButton: React.FC<Props> = ({
@@ -18,7 +22,7 @@ const FuncButton: React.FC<Props> = ({
 }: Props) => {
   return (
     <button
-      className={`absolute right-0 top-1/2 mr-2 flex h-5 -translate-y-1/2 items-center justify-center space-x-1 text-center md:mr-4 ${
+      className={`rounded-md bg-fyellow/40 py-2 px-3 text-center hover:bg-fyellow/60 hover:shadow ${
         color ?? ""
       }`}
       onClick={(e) => {
@@ -26,9 +30,21 @@ const FuncButton: React.FC<Props> = ({
         onClick();
       }}
     >
-      {icon}
-      {textIcon}
+      <div className="flex items-center space-x-1">
+        {icon}
+        <p className="font-bold">{textIcon}</p>
+      </div>
     </button>
+  );
+};
+
+export const AddButton: React.FC<ButtonProps> = ({ onClick }: ButtonProps) => {
+  return (
+    <FuncButton
+      icon={<PlusCircleIcon className="w-5 stroke-fred stroke-2" />}
+      textIcon="เพิ่มวิชา"
+      onClick={onClick}
+    />
   );
 };
 

@@ -8,15 +8,19 @@ const CurriculumEdit: React.FC = () => {
   const link = `/main/admin/manage-curriculum/${cur?.toString()}/edit`;
   const content: string[] = ["A", "B", "C"];
 
-  function handleOnAdd() { }
-  function handleOnSaveClick() { }
+  function handleOnAdd() {
+    return;
+  }
+  function handleOnSaveClick() {
+    return;
+  }
   function handleOnCancelClick() {
     router.back();
   }
 
   return (
     <EditCurriculumPage
-      content={content}
+      contents={content}
       handleOnAdd={handleOnAdd}
       link={link}
       headerText="แก้ไขหลักสูตร"

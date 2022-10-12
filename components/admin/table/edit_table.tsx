@@ -1,32 +1,19 @@
-import AddButton, { Props as AddButtonProps } from "components/add_button";
-import Table, { TableHeader } from "components/table";
-import React, { ReactNode } from "react";
+import { AddButton, ButtonProps } from "components/button";
+import Table, { TableContent } from "components/table";
+import React from "react";
 
-type Props = AddButtonProps & {
-  funcButton: ReactNode;
+type Props = ButtonProps & {
+  contents: TableContent[];
 };
 
-const EditTable: React.FC<Props> = ({ onAddClick, funcButton }: Props) => {
+const EditTable: React.FC<Props> = ({ onClick, contents }: Props) => {
+  const headers: string[] = ["รหัสวิชา", "ชื่อวิชา", "Action"];
+
   return (
     <Table
-      Header={
-        <tr className="text-fred">
-          <th className="w-1/4 border border-black">รหัสวิชา</th>
-          <TableHeader str="ชื่อวิชา" />
-        </tr>
-      }
-      Content={
-        <>
-          <tr>
-            <td className="border border-black">aa</td>
-            <td className="relative border border-black">
-              aa
-              {funcButton}
-            </td>
-          </tr>
-          <AddButton onAddClick={onAddClick} />
-        </>
-      }
+      Header={headers}
+      Content={contents}
+      speacialRow={<AddButton onClick={onClick} key="AddButton" />}
     />
   );
 };

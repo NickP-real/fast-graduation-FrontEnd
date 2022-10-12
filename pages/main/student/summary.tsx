@@ -5,6 +5,7 @@ import Table from "components/table";
 import React from "react";
 
 const Summary: React.FC = () => {
+  const numberInfoHeaders: string[] = ["หมวดหมู่", "หน่วยกิจรวม"];
   return (
     <Page type="Student">
       <h2 className="fast-head text-4xl">สรุปผลการเลือก</h2>
@@ -17,22 +18,12 @@ const Summary: React.FC = () => {
           <div className="mx-auto w-[90%]">
             <h2 className="fast-text mb-5 text-4xl">จำนวนหน่วยกิจ</h2>
             <Table
-              Header={
-                <tr>
-                  <th className="w-[60%] border border-black">หมวดหมู่</th>
-                  <th className="border border-black">หน่วยกิจรวม</th>
-                </tr>
-              }
-              Content={
-                <tr>
-                  <td className="border border-black">Major</td>
-                  <td className="border border-black"></td>
-                </tr>
-              }
+              Header={numberInfoHeaders}
+              Content={[{ texts: ["Major", "0"] }, { texts: ["Minor", "5"] }]}
             />
           </div>
 
-          <button className="mx-auto h-16 w-60 rounded-xl bg-[#D0E6A5] text-2xl font-extrabold text-[#CCABD8]">
+          <button className="mx-auto h-16 w-60 rounded-xl bg-fbrgreen/70 text-2xl font-extrabold text-[#CCABD8] hover:bg-fbrgreen">
             ยืนยันและดำเนินการ
           </button>
         </div>

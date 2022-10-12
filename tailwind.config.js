@@ -19,8 +19,10 @@ module.exports = {
         fyellow: "#FFDD95B5",
         fbryellow: "#FFE7B4",
         fpink: "#FF5A79",
+        fdblue: "#BED5DD",
+        fblack: "#5B5C5B",
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/forms")],
 };

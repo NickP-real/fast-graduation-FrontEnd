@@ -2,9 +2,10 @@ import Panel from "components/main/panel";
 import AddCurriculumModal from "components/modal/add_curriculum";
 import { AdminPage } from "components/page";
 import { CurriculumTable } from "components/table/curriculum_table";
+import { NextPage } from "next";
 import React, { useState } from "react";
 
-const ManageCurriculum: React.FC = () => {
+const ManageCurriculum: NextPage = () => {
   const content: string[] = ["วทบ.A", "วทบ.B"];
   const link = "/main/admin/manage-curriculum";
 
@@ -21,11 +22,13 @@ const ManageCurriculum: React.FC = () => {
       <AdminPage>
         <Panel>
           <h2 className="fast-head text-4xl">จัดการหลักสูตร</h2>
-          <CurriculumTable
-            handleOnAdd={handleOnAdd}
-            link={link}
-            content={content}
-          />
+          <main className="my-6">
+            <CurriculumTable
+              handleOnAdd={handleOnAdd}
+              link={link}
+              contents={content}
+            />
+          </main>
         </Panel>
       </AdminPage>
     </>
