@@ -97,7 +97,7 @@ const DraftManage: NextPage = () => {
               {/* TODO: iterate here */}
               <div className="my-2">
                 <h3 className="my-2">1 กลุ่มในต่อไปนี้</h3>
-                <DelTable onAddClick={handleOnAddClick} />
+                <DelTable onClick={handleOnAddClick} />
               </div>
             </section>
 
