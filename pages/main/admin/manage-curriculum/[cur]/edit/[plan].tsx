@@ -22,8 +22,7 @@ const Edit: React.FC = () => {
     }
   }
 
-  function handleOnAddClick(e: React.MouseEvent) {
-    e.preventDefault();
+  function handleOnAddClick() {
     setModal(true);
   }
 
@@ -36,7 +35,7 @@ const Edit: React.FC = () => {
     return (
       <section className="py-6">
         <h3 className="mb-1">{label}</h3>
-        <DelTable onAddClick={handleOnAddClick} />
+        <DelTable onClick={handleOnAddClick} />
       </section>
     );
   };
@@ -69,15 +68,17 @@ const Edit: React.FC = () => {
           <div className="my-5 w-full border border-black shadow-[25px_40px_40px_-15px_rgba(204,171,216,0.45)]">
             <header className="flex h-16 text-xl font-extrabold text-fpurple">
               <button
-                className={`w-[50vw] tracking-wider ${!mode ? "border-b-0 border-r-[1px]" : "border-b-[1px]"
-                  } border-black`}
+                className={`w-[50vw] tracking-wider ${
+                  !mode ? "border-b-0 border-r-[1px]" : "border-b-[1px]"
+                } border-black`}
                 onClick={handleOnCourseClick}
               >
                 จัดการวิชา
               </button>
               <button
-                className={`w-[50vw] tracking-wider ${mode ? "border-b-0 border-l-[1px]" : "border-b-[1px]"
-                  } border-black`}
+                className={`w-[50vw] tracking-wider ${
+                  mode ? "border-b-0 border-l-[1px]" : "border-b-[1px]"
+                } border-black`}
                 onClick={handleOnTimelineClick}
               >
                 จัดการ Timeline
