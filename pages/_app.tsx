@@ -1,8 +1,11 @@
-import "../styles/globals.css";
-import React from "react";
 import { AppProps } from "next/app";
-import SuperTokensReact, { SuperTokensWrapper } from "supertokens-auth-react";
 
+import SuperTokensReact, { SuperTokensWrapper } from "supertokens-auth-react";
+import Session from "supertokens-auth-react/recipe/session";
+import "../styles/globals.css";
+
+import { useEffect } from "react";
+import { redirectToAuth } from "supertokens-auth-react/recipe/thirdpartyemailpassword";
 import { frontendConfig } from "../config/frontendConfig";
 
 if (typeof window !== "undefined") {
@@ -11,6 +14,22 @@ if (typeof window !== "undefined") {
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    async function doRefresh() {
+      if (pageProps.fromSupertokens === "needs-refresh") {
+        if (await Session.attemptRefreshingSession()) {
+          location.reload();
+        } else {
+          // user has been logged out
+          redirectToAuth();
+        }
+      }
+    }
+    doRefresh();
+  }, [pageProps.fromSupertokens]);
+  if (pageProps.fromSupertokens === "needs-refresh") {
+    return null;
+  }
   return (
     <SuperTokensWrapper>
       <Component {...pageProps} />

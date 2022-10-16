@@ -104,7 +104,7 @@ export const Navbar: React.FC<NavbarType> = ({ type }: NavbarType) => {
   }
 
   const adminNav: NavbarData[] = [
-    { value: "จัดการหลักสูตร", href: "/main/admin/manage-curriculum" },
+    { value: "จัดการหลักสูตร", href: "/main/admin/program/browse" },
     {
       value: "จัดการข้อมูลรายวิชาที่เปิดสอน",
       href: "/main/admin/manage-course",

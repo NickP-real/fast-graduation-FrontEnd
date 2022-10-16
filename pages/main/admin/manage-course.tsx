@@ -1,6 +1,6 @@
 import Panel from "components/main/panel";
 import { AdminPage } from "components/page";
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import SearchTable from "components/admin/table/search_table";
 import SearchBar from "components/search_bar";
 import { NextPage } from "next";
@@ -30,10 +30,16 @@ const ManageCourse: NextPage = () => {
         const id: string = plan.courseId;
         const name: string = plan.courseName;
         const category: string = plan.courseCategory;
-        const searchStr: string = `${id}${name}${category}`.toLowerCase();
+        const searchStr: string = `${id}${name}${category}`.toLowerCase().replace(/\s+/g, "");
         return searchStr.includes(query.toLowerCase().replace(/\s+/g, ""));
       })
     : plans;
+
+  function handleOnChange(e:ChangeEvent<HTMLInputElement>) {
+    setQuery(e.target.value)
+  }
+
+  const handleOnDelClick = () => setQuery("")
 
   return (
     <>
@@ -46,8 +52,7 @@ const ManageCourse: NextPage = () => {
       <AdminPage>
         <h2 className="fast-text text-3xl">จัดการข้อมูลรายวิชาที่เปิดสอน</h2>
         <Panel>
-          {/* search bar */}
-          {/* <SearchBar /> */}
+          <SearchBar query={query} handleOnChange={handleOnChange} handleOnDelClick={handleOnDelClick}/>
           <div className="my-6">
             <SearchTable
               plans={filterdPlans}

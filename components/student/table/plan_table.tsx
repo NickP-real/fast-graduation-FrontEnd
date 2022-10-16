@@ -1,6 +1,6 @@
 import React from "react";
 import Table, { TableContent } from "components/table";
-import { DelButton, AddButton, ButtonProps } from "components/button";
+import { DelButton, AddCourseButton, ButtonProps } from "components/button";
 
 export type PlanContent = {
   courseId: string;
@@ -40,7 +40,7 @@ const PlanTable: React.FC<Props> = ({ plans, setPlans, onClick }: Props) => {
     <Table
       Header={headers}
       Content={modifiedContents}
-      speacialRow={<AddButton onClick={onClick} />}
+      speacialRow={<AddCourseButton onClick={onClick} />}
     />
   );
 };

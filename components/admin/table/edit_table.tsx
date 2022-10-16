@@ -1,4 +1,4 @@
-import { AddButton, ButtonProps } from "components/button";
+import { AddCourseButton, ButtonProps } from "components/button";
 import Table, { TableContent } from "components/table";
 import React from "react";
 
@@ -13,7 +13,7 @@ const EditTable: React.FC<Props> = ({ onClick, contents }: Props) => {
     <Table
       Header={headers}
       Content={contents}
-      speacialRow={<AddButton onClick={onClick} key="AddButton" />}
+      speacialRow={<AddCourseButton onClick={onClick} key="AddButton" />}
     />
   );
 };

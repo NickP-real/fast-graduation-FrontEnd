@@ -54,7 +54,7 @@ const CourseSearchModal: React.FC<Props> = ({
     <Dialog open={isOpen} onClose={setIsOpen} className="relative z-50">
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
 
-      <div className="fixed inset-0 mx-auto">
+      <div className="fixed inset-0 mx-auto px-4">
         <Dialog.Panel>
           <Combobox
             as="div"

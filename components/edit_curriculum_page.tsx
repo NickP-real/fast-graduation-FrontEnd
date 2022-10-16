@@ -9,28 +9,44 @@ import React, { useState } from "react";
 
 type Props = CurriculumTableProps & {
   headerText: "แก้ไขหลักสูตร" | "เพิ่มหลักสูตร";
+  start: number;
+  end: number;
 };
 
 const EditCurriculumPage: React.FC<Props> = ({
   contents,
   handleOnAdd,
   headerText,
-  link,
+  start,
+  end,
 }: Props) => {
   const router = useRouter();
   const studyYear: string[] = ["ภาคเรียนที่ 1", "ภาคเรียนที่ 2"];
 
-  const [startYear, setStartYear] = useState<string>(studyYear[0]);
-  const [endYear, setEndYear] = useState<string>(studyYear[1]);
+  const [startYear, setStartYear] = useState<number>(start);
+  const [endYear, setEndYear] = useState<number>(end);
+
+  const [startSemester, setStartSemester] = useState<string>(studyYear[0]);
+  const [endSemester, setEndSemester] = useState<string>(studyYear[1]);
   // const link = `/main/admin/manage-curriculum/${cur?.toString()}/edit`;
   // const content: string[] = ["A", "B", "C"];
 
-  function handleOnStartYearChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    setStartYear(e.target.value);
+  function handleOnStartSemesterChange(
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) {
+    setStartSemester(e.target.value);
   }
 
-  function handleOnEndYearChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    setEndYear(e.target.value);
+  function handleOnEndSemesterChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    setEndSemester(e.target.value);
+  }
+
+  function handleOnStartYearChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setStartYear(Number(e.target.value));
+  }
+
+  function handleOnEndYearChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setEndYear(Number(e.target.value));
   }
 
   // function handleOnAdd() { }
@@ -47,11 +63,7 @@ const EditCurriculumPage: React.FC<Props> = ({
         <h2 className="fast-head text-4xl">{headerText}</h2>
 
         <div className="my-6">
-          <CurriculumTable
-            handleOnAdd={handleOnAdd}
-            link={link}
-            contents={contents}
-          />
+          <CurriculumTable handleOnAdd={handleOnAdd} contents={contents} />
         </div>
 
         <form className="fast-text my-4 max-w-max items-center space-y-1 text-xl font-extrabold md:space-y-2">
@@ -61,10 +73,10 @@ const EditCurriculumPage: React.FC<Props> = ({
                 เริ่มต้น
               </label>
               <YearListbox
-                name="start_year"
-                id="start_year"
-                value={startYear}
-                onChange={handleOnStartYearChange}
+                name="start_semester"
+                id="start_semester"
+                value={startSemester}
+                onChange={handleOnStartSemesterChange}
                 contents={studyYear}
               />
             </div>
@@ -73,7 +85,13 @@ const EditCurriculumPage: React.FC<Props> = ({
               <label htmlFor="start_year" className="w-28 md:w-24">
                 ปีการศึกษา
               </label>
-              <input type="number" id="start_date" className="w-36 md:mx-3" />
+              <input
+                type="number"
+                id="start_date"
+                className="w-36 md:mx-3"
+                value={startYear}
+                onChange={handleOnStartYearChange}
+              />
             </div>
           </section>
 
@@ -83,10 +101,10 @@ const EditCurriculumPage: React.FC<Props> = ({
                 สิ้นสุด
               </label>
               <YearListbox
-                name="end_year"
-                id="end_year"
-                value={endYear}
-                onChange={handleOnEndYearChange}
+                name="end_semester"
+                id="end_semester"
+                value={endSemester}
+                onChange={handleOnEndSemesterChange}
                 contents={studyYear}
               />
             </div>
@@ -98,7 +116,9 @@ const EditCurriculumPage: React.FC<Props> = ({
               <input
                 type="number"
                 id="end_year"
-                className="w-36 text-center md:mx-3"
+                className="w-36 md:mx-3"
+                value={endYear}
+                onChange={handleOnEndYearChange}
               />
             </div>
           </section>
