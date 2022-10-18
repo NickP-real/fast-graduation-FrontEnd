@@ -24,7 +24,14 @@ a {
   input[type="number"],
   select,
   input[type="text"] {
-    @apply rounded text-fred focus:ring-fpurple;
+    @apply rounded text-fred placeholder:text-fred focus:ring-fpurple;
+  }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"] {
+    -webkit-appearance: none;
+    -moz-appearance: textfield !important;
   }
 
   input[type="checkbox"] {
@@ -36,7 +43,7 @@ a {
   }
 
   h1 {
-    @apply fast-head text-3xl;
+    @apply fast-head text-4xl;
   }
 
   h2 {

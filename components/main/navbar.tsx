@@ -2,6 +2,10 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
+import {
+  redirectToAuth,
+  signOut,
+} from "supertokens-auth-react/recipe/emailpassword";
 
 interface NavbarData {
   value: string;
@@ -22,6 +26,11 @@ const NavbarLayout: React.FC<LayoutProps> = ({
   type,
   isShow,
 }: LayoutProps) => {
+  async function logoutClicked() {
+    await signOut();
+    redirectToAuth();
+  }
+
   return (
     <nav
       className={`my-auto w-max transition-all duration-300 ease-in md:z-auto md:flex md:w-full md:items-center md:justify-between md:opacity-100 ${
@@ -36,12 +45,19 @@ const NavbarLayout: React.FC<LayoutProps> = ({
             </Link>
           );
         })}
-        <li className="my-1 md:my-0 md:hidden">ออกจากระบบ</li>
+        <a
+          className="my-1 hover:cursor-pointer md:my-0 md:hidden"
+          onClick={logoutClicked}
+        >
+          ออกจากระบบ
+        </a>
       </ul>
 
       <div className="hidden space-x-2 md:flex md:h-max md:items-center md:opacity-100">
         <ProfileButton type={type} />
-        <p className="fast-text">ออกจากระบบ</p>
+        <a className="fast-text hover:cursor-pointer" onClick={logoutClicked}>
+          ออกจากระบบ
+        </a>
       </div>
     </nav>
   );
@@ -107,7 +123,7 @@ export const Navbar: React.FC<NavbarType> = ({ type }: NavbarType) => {
     { value: "จัดการหลักสูตร", href: "/main/admin/program/browse" },
     {
       value: "จัดการข้อมูลรายวิชาที่เปิดสอน",
-      href: "/main/admin/manage-course",
+      href: "/main/admin/course/browse",
     },
   ];
 

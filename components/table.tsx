@@ -41,7 +41,7 @@ export const Table: React.FC<Props> = ({
                   return (
                     <td
                       key={text + index + text_idx}
-                      className="whitespace-pre"
+                      className="whitespace-pre-line"
                     >
                       {text}
                     </td>
@@ -78,10 +78,8 @@ export const Table: React.FC<Props> = ({
               >
                 <div>
                   {texts.map((text: string, text_idx: number) => {
-                    return text_idx == 0 ? (
-                      <h2 key={text + text_idx}>{text}</h2>
-                    ) : (
-                      <p key={text + text_idx} className="whitespace-pre">
+                    return (
+                      <p key={text + text_idx} className="whitespace-pre-wrap">
                         {text}
                       </p>
                     );

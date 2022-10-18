@@ -1,13 +1,13 @@
 import { Combobox, Dialog } from "@headlessui/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { Course } from "model/model";
 import React, { ChangeEvent, Dispatch, useState } from "react";
-import { PlanContent } from "./student/table/plan_table";
 
 type Props = {
   isOpen: boolean;
   setIsOpen: Dispatch<React.SetStateAction<boolean>>;
-  plans: PlanContent[];
-  setPlans: Dispatch<React.SetStateAction<PlanContent[]>>;
+  plans: Course[];
+  setPlans: Dispatch<React.SetStateAction<Course[]>>;
 };
 
 // ISR fetch course data
@@ -18,13 +18,13 @@ const CourseSearchModal: React.FC<Props> = ({
   plans,
   setPlans,
 }: Props) => {
-  const datas: PlanContent[] = [
+  const datas: Course[] = [
     { courseId: "222222", courseName: "idk", courseCategory: "alsoIdk" },
   ];
 
   const [query, setQuery] = useState<string>("");
 
-  const filterdDatas: PlanContent[] = query
+  const filterdDatas: Course[] = query
     ? datas.filter((data) => {
         const id: string = data.courseId;
         const name: string = data.courseName;
@@ -38,7 +38,7 @@ const CourseSearchModal: React.FC<Props> = ({
     setQuery(e.target.value);
   }
 
-  function handleOnSelect(selected: PlanContent) {
+  function handleOnSelect(selected: Course) {
     const isIncluded: boolean = plans.some(
       (item) => item.courseId === selected.courseId
     );

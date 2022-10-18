@@ -1,11 +1,12 @@
 import CourseSearchModal from "components/course_search_modal";
 import Panel from "components/main/panel";
 import { StudentPage } from "components/page";
-import PlanTable, { PlanContent } from "components/student/table/plan_table";
+import PlanTable from "components/student/table/plan_table";
+import { Course } from "model/model";
 import React, { useEffect, useState } from "react";
 
 const ManageCourse: React.FC = () => {
-  const datas: PlanContent[] = [
+  const datas: Course[] = [
     {
       courseId: "111111",
       courseName: "test\ntest",
@@ -19,7 +20,7 @@ const ManageCourse: React.FC = () => {
   ];
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const [plans, setPlans] = useState<PlanContent[]>(datas);
+  const [plans, setPlans] = useState<Course[]>(datas);
 
   useEffect(() => {
     console.log(plans);
@@ -42,8 +43,8 @@ const ManageCourse: React.FC = () => {
         <Panel>
           <div className="flex flex-col items-center justify-center gap-y-7">
             <PlanTable
-              plans={plans}
-              setPlans={setPlans}
+              courses={plans}
+              setCourses={setPlans}
               onClick={handleOnAddClick}
             />
             <button className="rounded-xl bg-[#FFDD95B5] px-4 py-2 text-xl font-extrabold text-[#fa897b] shadow-md">

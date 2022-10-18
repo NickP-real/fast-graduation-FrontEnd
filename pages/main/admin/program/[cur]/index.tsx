@@ -32,7 +32,15 @@ const CurriculumEdit: NextPage<
   const router = useRouter();
   const { cur, start, end } = router.query;
   const link = `/main/admin/program/${cur?.toString()}/edit`;
+
   const [plans, setPlans] = useState<ProgramPlan[]>(datas);
+  const [addedPlan, setAddedPlan] = useState<ProgramPlan[]>([]);
+
+  const [startYear, setStartYear] = useState<number>(Number(start));
+  const [endYear, setEndYear] = useState<number>(Number(end));
+
+  const [addPlanOpen, setAddPlanOpen] = useState<boolean>(false);
+  const [confirmOpen, setConfirmOpen] = useState<boolean>(false);
 
   const modifiedContent: TableContent[] = plans.map(
     (plan: ProgramPlan, index: number) => {
@@ -57,34 +65,78 @@ const CurriculumEdit: NextPage<
     }
   );
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const datas = await api
-  //       .get(`admin/program_plan/browse?q={${cur}}`)
-  //       .then((res) => console.log(res.data));
-  //   }
-  //   if (cur) {
-  //     fetchData();
-  //   }
-  // }, [cur]);
-
   function handleOnAdd() {
-    return;
+    setAddPlanOpen(true);
   }
-  function handleOnSaveClick() {
-    return;
+
+  function handleOnPlanAdd(thaiName: string, engName: string) {
+    const newPlan: ProgramPlan = {
+      program_id: Number(cur),
+      min_credit: 0,
+      name_en: engName,
+      name_th: thaiName,
+    };
+    setPlans([...plans, newPlan]);
+    setAddedPlan([...addedPlan, newPlan]);
+    setAddPlanOpen(false);
   }
+
+  async function handleOnSaveClick() {
+    let i = 0;
+    for (i; i < addedPlan.length; i++) {
+      const plan = addedPlan[i];
+      const res = await Api.programPlanAdd(plan);
+      if (res === "fail") {
+        alert(`fail to add\n${plan.name_en}\n${plan.name_th}`);
+        break;
+      }
+    }
+
+    const curAddedPlan = i + 1 === addedPlan.length ? [] : addedPlan.slice(i);
+    setAddedPlan(curAddedPlan);
+    if (!curAddedPlan.length) {
+      alert("Updated!");
+      router.back();
+    }
+  }
+
   function handleOnCancelClick() {
+    if (
+      plans.toString() !== datas.toString() ||
+      Number(start) !== startYear ||
+      Number(end) !== endYear
+    ) {
+      setConfirmOpen(true);
+      return;
+    }
     router.back();
+  }
+
+  function handleOnStartYearChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setStartYear(Number(e.target.value));
+  }
+
+  function handleOnEndYearChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setEndYear(Number(e.target.value));
   }
 
   return (
     <EditCurriculumPage
       contents={modifiedContent}
-      start={Number(start)}
-      end={Number(end)}
+      start={startYear}
+      end={endYear}
       handleOnAdd={handleOnAdd}
       headerText="แก้ไขหลักสูตร"
+      handleOnSaveClick={handleOnSaveClick}
+      handleOnCancelClick={handleOnCancelClick}
+      handleOnStartYearChange={handleOnStartYearChange}
+      handleOnEndYearChange={handleOnEndYearChange}
+      addPlanOpen={addPlanOpen}
+      setAddPlanOpen={setAddPlanOpen}
+      handleOnPlanAdd={handleOnPlanAdd}
+      confirmOpen={confirmOpen}
+      setConfirmOpen={setConfirmOpen}
+      router={router}
     />
   );
 };

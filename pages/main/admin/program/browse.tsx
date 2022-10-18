@@ -1,6 +1,6 @@
 import { DelButton, EditButton } from "components/button";
 import Panel from "components/main/panel";
-import AddCurriculumModal from "components/modal/add_curriculum";
+import AddProgramModal from "components/modal/add_program";
 import { AdminPage } from "components/page";
 import { TableContent } from "components/table";
 import { CurriculumTable } from "components/table/curriculum_table";
@@ -70,7 +70,7 @@ const ProgramBrowse: NextPage<
 
   return (
     <>
-      <AddCurriculumModal open={isAddCurModal} setOpen={setIsAddCurModal} />
+      <AddProgramModal open={isAddCurModal} setOpen={setIsAddCurModal} />
       <AdminPage>
         <Panel>
           <h2 className="fast-head text-4xl">จัดการหลักสูตร</h2>

@@ -1,7 +1,7 @@
 import React from "react";
 import Modal, { ModalProps } from "./modal";
 
-const AddCurriculumModal: React.FC<ModalProps> = ({
+const AddProgramModal: React.FC<ModalProps> = ({
   open,
   setOpen,
 }: ModalProps) => {
@@ -28,4 +28,4 @@ const AddCurriculumModal: React.FC<ModalProps> = ({
   );
 };
 
-export default AddCurriculumModal;
+export default AddProgramModal;

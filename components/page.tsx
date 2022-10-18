@@ -25,7 +25,7 @@ const Header: React.FC = () => {
         className="gradient absolute top-0 h-full w-full blur"
         aria-hidden={true}
       />
-      <div className="mx-2 h-full drop-shadow-lg md:mx-5">
+      <div className="mx-2 h-full drop-shadow-lg md:mx-5 relative">
         <Image
           src="/fastgrad.svg"
           alt="fast graduation logo"
@@ -33,6 +33,7 @@ const Header: React.FC = () => {
           objectFit="contain"
           objectPosition="left"
           className="object-contain"
+          priority={true}
         />
       </div>
     </header>

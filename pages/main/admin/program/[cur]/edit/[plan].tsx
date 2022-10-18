@@ -1,10 +1,12 @@
 import DelTable from "components/admin/table/del_table";
-import CourseSearchModal from "components/course_search_modal";
 import { AdminPage } from "components/page";
 import SubmitButton from "components/submit_button";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 const Edit: React.FC = () => {
+  const router = useRouter();
+
   const [mode, setMode] = useState<boolean>(false);
   const [isModal, setModal] = useState<boolean>(false);
 
@@ -24,6 +26,10 @@ const Edit: React.FC = () => {
 
   function handleOnAddClick() {
     setModal(true);
+  }
+
+  function handleOnCancelClick() {
+    router.back();
   }
 
   type TableProps = {
@@ -109,6 +115,13 @@ const Edit: React.FC = () => {
 
             <SubmitButton />
           </div>
+
+          <button
+            className="my-5 ml-auto block rounded-xl bg-fbryellow/70 px-6 py-3 text-2xl font-extrabold text-fred shadow-md hover:bg-fbryellow"
+            onClick={handleOnCancelClick}
+          >
+            ยกเลิก
+          </button>
         </main>
       </AdminPage>
     </>

@@ -1,27 +1,27 @@
 import React from "react";
 import Table, { TableContent } from "components/table";
 import { DelButton, AddCourseButton, ButtonProps } from "components/button";
-
-export type PlanContent = {
-  courseId: string;
-  courseName: string;
-  courseCategory: string;
-};
+import { Course } from "model/model";
 
 type Props = ButtonProps & {
-  plans: PlanContent[];
-  setPlans: React.Dispatch<React.SetStateAction<PlanContent[]>>;
+  courses: Course[];
+  setCourses: React.Dispatch<React.SetStateAction<Course[]>>;
 };
 
-const PlanTable: React.FC<Props> = ({ plans, setPlans, onClick }: Props) => {
-  const headers: string[] = ["รหัสวิชา", "ชื่อวิชา", "หมวดหมู่", "Action"];
-  const modifiedContents: TableContent[] = plans.map(
-    ({ courseId, courseName, courseCategory }, index: number) => {
+const PlanTable: React.FC<Props> = ({
+  courses,
+  setCourses,
+  onClick,
+}: Props) => {
+  const headers: string[] = ["รหัสวิชา", "ชื่อวิชา", "Action"];
+  const modifiedContents: TableContent[] = courses.map(
+    ({ id, name_en, name_th }, index: number) => {
+      const courseName = `${name_en}\n${name_th}`;
       return {
-        texts: [courseId, courseName, courseCategory],
+        texts: [id.toString(), courseName],
         components: [
           <DelButton
-            key={courseId + courseName}
+            key={id + courseName}
             onClick={() => handleOnDelClick(index)}
           />,
         ],
@@ -30,10 +30,10 @@ const PlanTable: React.FC<Props> = ({ plans, setPlans, onClick }: Props) => {
   );
 
   function handleOnDelClick(pos: number) {
-    const updateDatas: PlanContent[] = plans.filter((_, index) => {
+    const updateDatas: Course[] = courses.filter((_, index) => {
       return pos !== index;
     });
-    setPlans(updateDatas);
+    setCourses(updateDatas);
   }
 
   return (
