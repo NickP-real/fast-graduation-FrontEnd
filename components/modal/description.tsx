@@ -1,5 +1,9 @@
-const DescriptionModal: React.FC = () => {
-  return <Modal></Modal>;
-};
+import Modal from "./modal";
 
-export default DescriptionModal;
+// const DescriptionModal: React.FC = () => {
+//   return <Modal title="Description">
+
+//   </Modal>;
+// };
+
+// export default DescriptionModal;
