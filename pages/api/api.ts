@@ -121,12 +121,11 @@ export class Api {
   }
 
   static async getSuggestion() {
-    const { data: datas } = await api.get<{ data: SuggestionResult }>(
-      "/student/suggest",
-      this.cookiesHeader
-    );
+    const {
+      data: { term_1, term_2 },
+    } = await api.get<SuggestionResult>("/student/suggest", this.cookiesHeader);
 
-    return datas;
+    return { term_1, term_2 };
   }
 }
 
