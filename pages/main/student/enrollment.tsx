@@ -1,5 +1,6 @@
 import CourseSearchModal from "components/course_search_modal";
 import Panel from "components/main/panel";
+import DescriptionModal from "components/modal/description";
 import { StudentPage } from "components/page";
 import SummaryModal from "components/student/summary_modal";
 import PlanTable from "components/student/table/plan_table";
@@ -44,15 +45,22 @@ const Enrollment: NextPage<
 > = ({ enrolledCourses, courses, category }) => {
   const router = useRouter();
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const [isSummary, setIsSummary] = useState<boolean>(false);
+  const [isSummaryModal, setIsSummaryModal] = useState<boolean>(false);
+  const [isInfoModal, setIsInfoModal] = useState<boolean>(false);
   const [enrollCourse, setEnrollCourse] = useState<Course[]>(enrolledCourses);
+  const [showDesc, setShowDesc] = useState<Course>(enrollCourse[0]);
 
   function handleOnAddClick() {
     setModalOpen(true);
   }
 
   function handleOnSummaryClick() {
-    setIsSummary(true);
+    setIsSummaryModal(true);
+  }
+
+  function handleOnInfoClick(index: number) {
+    setShowDesc(enrollCourse.filter((_, idx: number) => idx == index)[0]);
+    setIsInfoModal(true);
   }
 
   async function handleOnConfirmClick() {
@@ -79,11 +87,16 @@ const Enrollment: NextPage<
 
   return (
     <>
+      <DescriptionModal
+        open={isInfoModal}
+        setOpen={setIsInfoModal}
+        course={showDesc as Course}
+      />
       <SummaryModal
         enrollCourse={enrollCourse}
         categories={category}
-        open={isSummary}
-        setOpen={setIsSummary}
+        open={isSummaryModal}
+        setOpen={setIsSummaryModal}
         handleOnConfirmClick={handleOnConfirmClick}
       />
       <CourseSearchModal
@@ -103,6 +116,7 @@ const Enrollment: NextPage<
               setCourses={setEnrollCourse}
               onClick={handleOnAddClick}
               categories={category}
+              handleOnInfoClick={handleOnInfoClick}
             />
             <button
               className="rounded-xl bg-[#FFDD95B5] px-4 py-2 text-xl font-extrabold text-[#fa897b] shadow-md"

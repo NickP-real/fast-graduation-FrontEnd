@@ -4,6 +4,7 @@ import {
   DelButton,
   AddCourseButton,
   ButtonProps,
+  InfoButton,
 } from "components/button/button";
 import { CategoryAbbr, Course } from "model/model";
 
@@ -11,6 +12,7 @@ type Props = ButtonProps & {
   courses: Course[];
   setCourses: React.Dispatch<React.SetStateAction<Course[]>>;
   categories: CategoryAbbr[];
+  handleOnInfoClick: (e: number) => void;
 };
 
 const PlanTable: React.FC<Props> = ({
@@ -18,6 +20,7 @@ const PlanTable: React.FC<Props> = ({
   setCourses,
   categories,
   onClick,
+  handleOnInfoClick,
 }: Props) => {
   const headers: string[] = ["รหัสวิชา", "ชื่อวิชา", "หมวดหมู่", "Action"];
   const modifiedContents: TableContent[] = courses.map(
@@ -34,8 +37,12 @@ const PlanTable: React.FC<Props> = ({
       return {
         texts: [courseId.toString(), courseName, displayCat],
         components: [
+          <InfoButton
+            key={"0" + courseId + courseName + index}
+            onClick={() => handleOnInfoClick(index)}
+          />,
           <DelButton
-            key={courseId + courseName + index}
+            key={"1" + courseId + courseName + index}
             onClick={() => handleOnDelClick(index)}
           />,
         ],
