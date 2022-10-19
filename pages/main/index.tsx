@@ -45,23 +45,6 @@ export const Home: NextPage = () => {
 //       <MenuPanel />
 //     </main>
 
-//     <footer className="h-max border text-black">
-//       <div className="flex justify-end gap-x-4">
-//         <Image
-//           src="/fastgrad.svg"
-//           alt="fast graduate logo"
-//           width={471 / 4}
-//           height={243 / 4}
-//         />
-//         <div className="my-4 w-2 flex-shrink rounded bg-gradient-to-b from-[rgba(251,162,131,0.53)] to-[rgba(204,171,216,0.85)]"></div>
-//         <div className="fast-text w-36 break-words">
-//           <p>ติดต่อผู้ดูแลระบบ</p>
-//           <p>1234 ถ.คอนกรีต ต.บ้าน อ.เมือง จ.อิงแลนด์ 56789</p>
-//           <p>053-xxx-xxx</p>
-//           <p>reg@cnu.ca.th</p>
-//         </div>
-//       </div>
-//     </footer>
 //   </div>
 // );
 
