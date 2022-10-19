@@ -8,32 +8,33 @@ import {
   InferGetServerSidePropsType,
   NextPage,
 } from "next";
-import CourseSearchModal from "components/course_search_modal";
-import { Api } from "pages/api/api";
+import { Api, catchErrorRedirectLogin } from "pages/api/api";
 import { Course } from "model/model";
 
 export const getServerSideProps = async ({
   req,
 }: GetServerSidePropsContext) => {
   Api.setCookie(req.cookies);
-  const datas = await Api.courseBrowse();
-  return {
-    props: {
-      datas,
-    },
-  };
+  return await catchErrorRedirectLogin(async () => {
+    const datas = await Api.courseBrowse();
+    return {
+      props: {
+        datas,
+      },
+    };
+  });
 };
 
 const CourseBrowse: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ datas }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [courses, setCourses] = useState<Course[]>(datas);
   const [query, setQuery] = useState<string>("");
 
   const filterdCourses: Course[] = query
     ? courses.filter((course: Course) => {
-        const id: string = course.id.toString();
+        const id: string =
+          "0".repeat(6 - course.id.toString().length) + course.id.toString();
         const name: string = course.name_en + course.name_th;
         const searchStr: string = `${id}${name}`
           .toLowerCase()
@@ -50,12 +51,6 @@ const CourseBrowse: NextPage<
 
   return (
     <>
-      <CourseSearchModal
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        plans={courses}
-        setPlans={setCourses}
-      />
       <AdminPage>
         <h1>จัดการข้อมูลรายวิชาที่เปิดสอน</h1>
         <Panel>

@@ -1,4 +1,4 @@
-import { AddButton } from "components/button";
+import { AddButton } from "components/button/button";
 import Table, { TableContent } from "components/table";
 import React from "react";
 

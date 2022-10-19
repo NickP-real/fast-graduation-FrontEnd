@@ -1,5 +1,12 @@
 import axios from "axios";
-import { Course, Program, ProgramPlan } from "model/model";
+import {
+  CategoryAbbr,
+  Course,
+  EnrollCourse,
+  Program,
+  ProgramPlan,
+  SuggestionResult,
+} from "model/model";
 import Session from "supertokens-auth-react/recipe/session";
 import { formatCookie } from "utils/format_cookie";
 
@@ -70,12 +77,56 @@ export class Api {
   static async courseFind(courseId: number) {
     const {
       data: { data: course },
-    } = await api.get<{ data: Course[] }>(
-      `/admin/course/browse?q=${courseId}`,
+    } = await api.get<{ data: Course }>(
+      `/admin/course/edit/${courseId}`,
       this.cookiesHeader
     );
 
-    return course[0];
+    return course;
+  }
+
+  static async courseEdit(courseId: number, body: Course) {
+    const {
+      data: { status: status },
+    } = await api.post(`/admin/course/edit/${courseId}`, body);
+
+    return status;
+  }
+
+  static async courseBrowseFromPlan() {
+    const {
+      data: {
+        data: { available_courses: datas, categories: categories },
+      },
+    } = await api.get<{
+      data: { available_courses: Course[]; categories: CategoryAbbr[] };
+    }>("/student/browse_course", this.cookiesHeader);
+
+    return { datas, categories };
+  }
+
+  static async postUpdateEnrollment(body: EnrollCourse[]) {
+    const res = await api.post("/student/update_enrollment", body);
+    return res;
+  }
+
+  static async getUpdateEnrollment() {
+    const {
+      data: { data: datas },
+    } = await api.get<{ data: EnrollCourse[] }>(
+      "/student/update_enrollment",
+      this.cookiesHeader
+    );
+    return datas;
+  }
+
+  static async getSuggestion() {
+    const { data: datas } = await api.get<{ data: SuggestionResult }>(
+      "/student/suggest",
+      this.cookiesHeader
+    );
+
+    return datas;
   }
 }
 

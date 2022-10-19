@@ -20,12 +20,12 @@ const Page: React.FC<Props> = ({ type, children }: Props) => {
 
 const Header: React.FC = () => {
   return (
-    <header className="relative h-20">
+    <header className="relative h-20 print:hidden">
       <div
         className="gradient absolute top-0 h-full w-full blur"
         aria-hidden={true}
       />
-      <div className="mx-2 h-full drop-shadow-lg md:mx-5 relative">
+      <div className="relative mx-2 h-full drop-shadow-lg md:mx-5">
         <Image
           src="/fastgrad.svg"
           alt="fast graduation logo"

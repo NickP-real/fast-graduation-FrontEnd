@@ -1,4 +1,4 @@
-import { EditButton } from "components/button";
+import { EditButton } from "components/button/button";
 import { Course } from "model/model";
 import { useRouter } from "next/router";
 import React from "react";

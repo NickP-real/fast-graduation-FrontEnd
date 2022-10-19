@@ -15,6 +15,7 @@ export type ProgramPlan = {
 };
 
 export type Course = {
+  category_id?: number;
   consent_dept: 0 | 1;
   credit: number;
   description_en: string;
@@ -26,4 +27,25 @@ export type Course = {
   term_1: 0 | 1;
   term_2: 0 | 1;
   term_s: 0 | 1;
+};
+
+export type CategoryAbbr = {
+  abbr_en: string;
+  abbr_th: string;
+  id: number;
+  name_en: string;
+  name_th: string;
+};
+
+export type EnrollCourse = {
+  course_id: number;
+  cat_id: number;
+  term: number;
+  year: number;
+  grade: "A" | "B+" | "B" | "C+" | "C" | "D+" | "D" | "F";
+};
+
+export type SuggestionResult = {
+  term_1: number[];
+  term_2: number[];
 };

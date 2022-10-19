@@ -128,7 +128,7 @@ export const Navbar: React.FC<NavbarType> = ({ type }: NavbarType) => {
   ];
 
   const studentNav: NavbarData[] = [
-    { value: "จัดการข้อมูลการเรียน", href: "/main/student/manage-course" },
+    { value: "จัดการข้อมูลการเรียน", href: "/main/student/enrollment" },
     { value: "แนะนำแผนการศึกษา", href: "/main/student/suggestion" },
   ];
 
@@ -141,8 +141,8 @@ export const Navbar: React.FC<NavbarType> = ({ type }: NavbarType) => {
   }
 
   return (
-    <header className="bg-white">
-      <div className="container mx-auto px-4 py-4 text-base md:flex">
+    <header className="bg-white print:hidden">
+      <div className=" container mx-auto px-4 py-4 text-base md:flex">
         <MobileIcon
           type={type}
           onClick={handleOnMobileIconClick}

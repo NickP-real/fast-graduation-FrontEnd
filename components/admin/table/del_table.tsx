@@ -1,6 +1,6 @@
 import React from "react";
 import EditTable from "./edit_table";
-import { ButtonProps, DelButton } from "components/button";
+import { ButtonProps, DelButton } from "components/button/button";
 
 type Props = ButtonProps;
 
@@ -19,7 +19,7 @@ const DelTable: React.FC<Props> = ({ onClick }: Props) => {
     },
   ];
 
-  return <EditTable onClick={onClick} contents={contents} />;
+  return <EditTable contents={contents} />;
 };
 
 export default DelTable;

@@ -1,4 +1,4 @@
-import { DelButton, EditButton } from "components/button";
+import { DelButton, EditButton } from "components/button/button";
 import Panel from "components/main/panel";
 import AddProgramModal from "components/modal/add_program";
 import { AdminPage } from "components/page";

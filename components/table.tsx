@@ -67,25 +67,35 @@ export const Table: React.FC<Props> = ({
       </table>
 
       <div className="block w-full sm:hidden">
-        <section className="grid grid-cols-1 gap-y-4">
+        <section className="space-y-4">
           {Content.map((datas: TableContent, index: number) => {
             const texts = datas.texts;
             const components = datas.components;
             return (
               <main
                 key={datas.toString() + index}
-                className="grid grid-cols-2 rounded-md border p-4 shadow-md"
+                className="flex flex-col space-y-2 rounded-md border p-4 shadow-md"
               >
-                <div>
+                <div className="divide-y-2">
                   {texts.map((text: string, text_idx: number) => {
-                    return (
-                      <p key={text + text_idx} className="whitespace-pre-wrap">
+                    return text_idx === 0 ? (
+                      <p
+                        key={text + text_idx}
+                        className="whitespace-pre-wrap py-1 font-bold"
+                      >
+                        {text}
+                      </p>
+                    ) : (
+                      <p
+                        key={text + text_idx}
+                        className="whitespace-pre-wrap py-1"
+                      >
                         {text}
                       </p>
                     );
                   })}
                 </div>
-                <div className="flex flex-col space-y-2 justify-self-end">
+                <div className="flex items-center justify-center space-x-2">
                   {components &&
                     components.map((component: ReactNode) => component)}
                 </div>

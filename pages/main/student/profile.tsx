@@ -7,7 +7,7 @@ const Profile: NextPage = () => {
   return (
     <Page type="Student">
       <main className="container my-5 mx-auto flex w-full gap-x-5">
-        <Panel small={true}>
+        <Panel>
           <h3 className="fast-text bg-white text-2xl">ข้อมูลส่วนตัว</h3>
           <main>
             <p>นาย กขคง กขคง</p>
@@ -43,7 +43,6 @@ const Profile: NextPage = () => {
             </table>
           </main>
         </Panel>
-        <Panel shadow="orange">....</Panel>
       </main>
     </Page>
   );

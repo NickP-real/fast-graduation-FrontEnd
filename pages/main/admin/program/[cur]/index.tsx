@@ -1,4 +1,4 @@
-import { DelButton, EditButton } from "components/button";
+import { DelButton, EditButton } from "components/button/button";
 import EditCurriculumPage from "components/edit_curriculum_page";
 import { TableContent } from "components/table";
 import { ProgramPlan } from "model/model";

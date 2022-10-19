@@ -1,6 +1,6 @@
 import DelTable from "components/admin/table/del_table";
 import { AdminPage } from "components/page";
-import SubmitButton from "components/submit_button";
+import SubmitButton from "components/button/submit_button";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 
