@@ -35,7 +35,7 @@ export const Modal: React.FC<Props> = ({
 
       <div className="fixed inset-4 mx-auto my-auto flex h-max max-h-screen max-w-max flex-col items-center justify-center rounded-lg bg-gradient-to-b from-fred to-fpurple shadow-md">
         <Dialog.Panel
-          className="relative m-1 h-max overflow-y-auto rounded bg-white p-5"
+          className="relative m-1 h-max overflow-y-auto rounded bg-white p-5 max-w-max"
           ref={focusRef}
         >
           <CloseButton onClick={handleOnCloseClick} />
