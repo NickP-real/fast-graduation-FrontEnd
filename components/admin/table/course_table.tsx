@@ -1,4 +1,4 @@
-import { EditButton } from "components/button/button";
+import { DelButton, EditButton } from "components/button/button";
 import { Course } from "model/model";
 import { useRouter } from "next/router";
 import React from "react";
@@ -25,8 +25,14 @@ const CourseTable: React.FC<Props> = ({ courses }: Props) => {
             texts: [courseId, courseName],
             components: [
               <EditButton
-                key={id + courseName + index}
+                key={"Edit" + id + courseName + index}
                 onClick={() => handleOnEditClick(id)}
+              />,
+              <DelButton
+                key={"Del" + id + courseName + index}
+                onClick={() => {
+                  return;
+                }}
               />,
             ],
           };

@@ -10,6 +10,7 @@ import {
 } from "next";
 import { Api, catchErrorRedirectLogin } from "pages/api/api";
 import { Course } from "model/model";
+import { AddCourseButton } from "components/button/button";
 
 export const getServerSideProps = async ({
   req,
@@ -54,6 +55,11 @@ const CourseBrowse: NextPage<
       <AdminPage>
         <h1>จัดการข้อมูลรายวิชาที่เปิดสอน</h1>
         <Panel>
+          <AddCourseButton
+            onClick={() => {
+              return;
+            }}
+          />
           <SearchBar
             query={query}
             handleOnChange={handleOnChange}
