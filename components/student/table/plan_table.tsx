@@ -1,14 +1,9 @@
 import React from "react";
 import Table, { TableContent } from "components/table";
-import {
-  DelButton,
-  AddCourseButton,
-  ButtonProps,
-  InfoButton,
-} from "components/button/button";
+import { DelButton, InfoButton } from "components/button/button";
 import { CategoryAbbr, Course } from "model/model";
 
-type Props = ButtonProps & {
+type Props = {
   courses: Course[];
   setCourses: React.Dispatch<React.SetStateAction<Course[]>>;
   categories: CategoryAbbr[];
@@ -19,7 +14,6 @@ const PlanTable: React.FC<Props> = ({
   courses,
   setCourses,
   categories,
-  onClick,
   handleOnInfoClick,
 }: Props) => {
   const headers: string[] = ["รหัสวิชา", "ชื่อวิชา", "หมวดหมู่", "Action"];
@@ -57,13 +51,7 @@ const PlanTable: React.FC<Props> = ({
     setCourses(updateDatas);
   }
 
-  return (
-    <Table
-      Header={headers}
-      Content={modifiedContents}
-      speacialRow={<AddCourseButton onClick={onClick} />}
-    />
-  );
+  return <Table Header={headers} Content={modifiedContents} />;
 };
 
 export default PlanTable;

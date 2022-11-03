@@ -4,110 +4,109 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { PencilSquareIcon as PencilSquareSolidIcon } from "@heroicons/react/24/solid";
-import React, { ReactNode } from "react";
+import React, { MouseEvent, ReactNode } from "react";
 
 export type ButtonProps = {
   onClick: () => void;
 };
-type Props = ButtonProps & {
+
+type FuncButtonProps = ButtonProps & {
   icon: ReactNode;
   textIcon: string;
-  color?: string;
-  bgColor: string;
-  hoverBgColor: string;
+  className: string;
 };
 
-const FuncButton: React.FC<Props> = ({
+type FixButtonProps = ButtonProps & {
+  label: string;
+  className: string;
+};
+
+const FuncButton: React.FC<FuncButtonProps> = ({
   onClick,
   icon,
   textIcon,
-  color,
-  bgColor,
-  hoverBgColor,
-}: Props) => {
+  className,
+}: FuncButtonProps) => {
+  function handleOnClick(e: MouseEvent) {
+    e.preventDefault();
+    onClick();
+  }
+
   return (
     <button
-      className={`rounded-md py-2 px-3 text-center ${bgColor} ${hoverBgColor} hover:shadow ${
-        color ?? ""
-      }`}
-      onClick={(e) => {
-        e.preventDefault();
-        onClick();
-      }}
+      className={`rounded-md py-2 px-3 text-center hover:shadow ${className}
+`}
+      onClick={handleOnClick}
     >
-      <div className="flex items-center justify-center space-x-1">
-        {icon}
+      <div
+        className={`flex items-center justify-center ${icon && "space-x-1"}`}
+      >
+        <div className="h-5">{icon}</div>
         <p className="font-bold">{textIcon}</p>
       </div>
     </button>
   );
 };
 
+export const Button: React.FC<FixButtonProps> = ({
+  onClick,
+  label,
+  className,
+}: FixButtonProps) => {
+  function handleOnClick(e: MouseEvent) {
+    e.preventDefault();
+    onClick();
+  }
+
+  return (
+    <button
+      className={`${className} rounded-md text-center font-bold shadow-md`}
+      onClick={handleOnClick}
+    >
+      {label}
+    </button>
+  );
+};
+
 export const AddCourseButton: React.FC<ButtonProps> = ({
   onClick,
-}: ButtonProps) => {
-  return (
-    <FuncButton
-      icon={<PlusCircleIcon className="w-5 stroke-fpurple stroke-2" />}
-      textIcon="เพิ่มวิชา"
-      onClick={onClick}
-      color="text-fpurple"
-      bgColor="bg-fbrgreen/60"
-      hoverBgColor="hover:bg-fbrgreen/80"
-    />
-  );
-};
-
-export const AddButton: React.FC<ButtonProps> = ({ onClick }: ButtonProps) => {
-  return (
-    <FuncButton
-      icon={<PencilSquareSolidIcon className="w-5 stroke-2" />}
-      textIcon="เพิ่ม"
-      onClick={onClick}
-      color="text-fpurple"
-      bgColor="bg-fbrgreen/60"
-      hoverBgColor="hover:bg-fbrgreen/80"
-    />
-  );
-};
-
-export const DelButton: React.FC<ButtonProps> = ({ onClick }: ButtonProps) => {
-  return (
-    <FuncButton
-      icon={<XMarkIcon className="h-5 stroke-2" />}
-      textIcon="ลบ"
-      onClick={onClick}
-      color="text-fpink"
-      bgColor="bg-fyellow/40"
-      hoverBgColor="hover:bg-fyellow/60"
-    />
-  );
-};
-
-export const EditButton: React.FC<ButtonProps> = ({ onClick }: ButtonProps) => {
-  return (
-    <FuncButton
-      icon={<PencilSquareIcon className="h-5" />}
-      textIcon="แก้ไข"
-      onClick={onClick}
-      color="text-[#262829]"
-      bgColor="bg-fblue/40"
-      hoverBgColor="hover:bg-fblue/60"
-    />
-  );
-};
-
-export const InfoButton: React.FC<ButtonProps> = ({ onClick }: ButtonProps) => {
-  return (
-    <FuncButton
-      icon={<></>}
-      textIcon="รายละเอียด"
-      onClick={onClick}
-      color="text-[#666768]"
-      bgColor="bg-green-400/40"
-      hoverBgColor="hover:bg-green-400/60"
-    />
-  );
-};
-
-export default FuncButton;
+}: ButtonProps) => (
+  <FuncButton
+    icon={<PlusCircleIcon className="w-5 stroke-fpurple stroke-2" />}
+    textIcon="เพิ่มวิชา"
+    onClick={onClick}
+    className="bg-fbrgreen/60 text-fpurple hover:bg-fbrgreen/80"
+  />
+);
+export const AddButton: React.FC<ButtonProps> = ({ onClick }: ButtonProps) => (
+  <FuncButton
+    icon={<PencilSquareSolidIcon className="w-5 stroke-2" />}
+    textIcon="เพิ่ม"
+    onClick={onClick}
+    className="bg-fbrgreen/60 text-fpurple hover:bg-fbrgreen/80"
+  />
+);
+export const DelButton: React.FC<ButtonProps> = ({ onClick }: ButtonProps) => (
+  <FuncButton
+    icon={<XMarkIcon className="h-5 stroke-2" />}
+    textIcon="ลบ"
+    onClick={onClick}
+    className="bg-fyellow/40 text-fpink hover:bg-fyellow/60"
+  />
+);
+export const EditButton: React.FC<ButtonProps> = ({ onClick }: ButtonProps) => (
+  <FuncButton
+    icon={<PencilSquareIcon className="h-5" />}
+    textIcon="แก้ไข"
+    onClick={onClick}
+    className="bg-fblue/40 text-[#262829] hover:bg-fblue/60"
+  />
+);
+export const InfoButton: React.FC<ButtonProps> = ({ onClick }: ButtonProps) => (
+  <FuncButton
+    icon={null}
+    textIcon="รายละเอียด"
+    onClick={onClick}
+    className="bg-green-400/40 text-[#666768] hover:bg-green-400/60"
+  />
+);

@@ -1,5 +1,6 @@
 import { Course } from "model/model";
 import Modal, { ModalProps } from "./modal";
+import React from "react";
 
 type Props = ModalProps & {
   course: Course;
@@ -12,7 +13,7 @@ const DescriptionModal: React.FC<Props> = ({
 }: Props) => {
   return (
     <Modal title="รายละเอียดวิชา : Description" open={open} setOpen={setOpen}>
-      <main className="space-y-2 max-w-md">
+      <main className="max-w-md space-y-2">
         <section className="flex space-x-2">
           <div className="w-40 font-bold">
             <p>รหัสวิชา</p>
@@ -27,12 +28,12 @@ const DescriptionModal: React.FC<Props> = ({
         </section>
         <section>
           <p className="mb-1 font-bold">คำอธิบาย</p>
-          <p className="">{course.description_th}</p>
+          <p>{course.description_th}</p>
         </section>
 
         <section>
           <p className="mb-1 font-bold">Description</p>
-          <p className="">{course.description_en}</p>
+          <p>{course.description_en}</p>
         </section>
       </main>
     </Modal>

@@ -9,7 +9,7 @@ import {
   NextPage,
 } from "next";
 import { Api, catchErrorRedirectLogin } from "pages/api/api";
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, SetStateAction, useState } from "react";
 import { engRegex, numRegex, thRegex } from "utils/regex";
 import { Course } from "model/model";
 import { useRouter } from "next/router";
@@ -35,60 +35,65 @@ const CourseEdit: NextPage<
   const router = useRouter();
   const studyYearList: string[] = ["1", "2", "3"];
 
+  const [form, setForm] = useState<Course>(course);
   const [id, setId] = useState<string>(
     "0".repeat(6 - course.id.toString().length) + course.id.toString()
   );
-  const [thName, setThName] = useState<string>(course.name_th);
-  const [enName, setEnName] = useState<string>(course.name_en);
-  const [thDesc, setThDesc] = useState<string>(course.description_th);
-  const [enDesc, setEnDesc] = useState<string>(course.description_en);
-  const [credit, setCredit] = useState<number>(course.credit);
-  const [term, setTerm] = useState<boolean[]>([
-    !!course.term_1,
-    !!course.term_2,
-    !!course.term_s,
-  ]);
-  const [minYear, setMinYear] = useState<number | null>(course.min_year);
   const [isMinYear, setIsMinYear] = useState<boolean>(!!course.min_year);
-  const [isConsentDept, setIsConsentDept] = useState<boolean>(
-    !!course.consent_dept
-  );
+
+  const term: boolean[] = [!!form.term_1, !!form.term_2, !!form.term_s];
 
   function handleOnIdChange(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.value.match(numRegex) != null) setId(e.target.value);
   }
 
   function handleOnThNameChange(e: ChangeEvent<HTMLInputElement>) {
-    if (e.target.value.match(thRegex) != null) setThName(e.target.value);
+    if (e.target.value.match(thRegex) != null)
+      setForm((curr) => ({ ...curr, name_th: e.target.value }));
   }
 
   function handleOnEnNameChange(e: ChangeEvent<HTMLInputElement>) {
-    if (e.target.value.match(engRegex) != null) setEnName(e.target.value);
+    if (e.target.value.match(engRegex) != null)
+      setForm((curr) => ({ ...curr, name_en: e.target.value }));
   }
 
   function handleOnThDescChange(e: ChangeEvent<HTMLTextAreaElement>) {
-    if (e.target.value.match(/^[ก-๏0-9 ]*$/) != null) setThDesc(e.target.value);
+    if (e.target.value.match(/^[ก-๏0-9 ]*$/) != null)
+      setForm((curr) => ({ ...curr, description_th: e.target.value }));
   }
 
   function handleOnEnDescChange(e: ChangeEvent<HTMLTextAreaElement>) {
     if (e.target.value.match(/^[.a-zA-Z0-9 ]*$/) != null)
-      setEnDesc(e.target.value);
+      setForm((curr) => ({ ...curr, description_en: e.target.value }));
   }
 
   function handleOnCreditChange(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.value.match(numRegex) != null)
-      setCredit(Number(e.target.value));
+      setForm((curr) => ({ ...curr, credit: +e.target.value }));
   }
 
   function handleOnTermCheck(index: number) {
     const updated: boolean[] = term.map((item: boolean, i: number) =>
       i === index ? !item : item
     );
-    setTerm(() => updated);
+    setForm((curr) => ({
+      ...curr,
+      term_1: updated[0] ? 1 : 0,
+      term_2: updated[1] ? 1 : 0,
+      term_s: updated[2] ? 1 : 0,
+    }));
   }
 
   const handleOnIsMinYearCheck = () => setIsMinYear(!isMinYear);
-  const handleOnIsConsentDeptCheck = () => setIsConsentDept(!isConsentDept);
+
+  function handleOnMinYearChange(e: SetStateAction<string>) {
+    if (e.toString().match(numRegex) != null)
+      setForm((curr) => ({ ...curr, min_year: +e }));
+  }
+
+  function handleOnIsConsentDeptCheck() {
+    setForm((curr) => ({ ...curr, consent_dept: !form.consent_dept ? 1 : 0 }));
+  }
 
   function handleOnCancelClick() {
     router.back();
@@ -99,17 +104,13 @@ const CourseEdit: NextPage<
     console.log("test");
 
     const body: Course = {
-      consent_dept: isConsentDept ? 1 : 0,
-      credit: credit,
-      description_en: enDesc,
-      description_th: thDesc,
-      id: Number(id),
-      min_year: isMinYear ? minYear : null,
-      name_en: enName,
-      name_th: thName,
-      term_1: term[0] ? 1 : 0,
-      term_2: term[1] ? 1 : 0,
-      term_s: term[2] ? 1 : 0,
+      ...form,
+      id: +id,
+      name_th: form.name_th.trim(),
+      name_en: form.name_en.trim(),
+      description_th: form.description_th.trim(),
+      description_en: form.description_en.trim(),
+      min_year: isMinYear ? form.min_year : null,
     };
 
     if (JSON.stringify(body) === JSON.stringify(course)) {
@@ -138,98 +139,77 @@ const CourseEdit: NextPage<
             onSubmit={handleOnSubmit}
           >
             <main className="space-y-6">
-              <section className="space-y-2 [&_label]:w-40 [&_label]:font-bold">
-                <div>
-                  <label htmlFor="course_id">รหัสวิชา</label>
-                  <input
-                    type="text"
-                    id="course_id"
-                    value={id}
-                    onChange={handleOnIdChange}
-                    maxLength={6}
-                    pattern={"[0-9]{6}"}
-                    required={true}
-                    title="6 digits course number"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="course_thai">ชื่อวิชา (ภาษาไทย)</label>
-                  <input
-                    type="text"
-                    id="course_thai"
-                    value={thName}
-                    onChange={handleOnThNameChange}
-                    pattern={"[ก-๏ ]+[0-9]*"}
-                    required={true}
-                    title="Thai only"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="course_eng">ชื่อวิชา (English)</label>
-                  <input
-                    type="text"
-                    id="course_eng"
-                    value={enName}
-                    onChange={handleOnEnNameChange}
-                    pattern={"[a-zA-Z ]+[0-9]*"}
-                    required={true}
-                    title="English only"
-                  />
-                </div>
+              <section className="space-y-2">
+                <LabelInput
+                  label="รหัสวิชา"
+                  id="course_id"
+                  value={id}
+                  onChange={handleOnIdChange}
+                  pattern={"[0-9]{6}"}
+                  title="6 digits course number"
+                  maxLength={6}
+                />
+                <LabelInput
+                  label="ชื่อวิชา (ภาษาไทย)"
+                  id="course_thai"
+                  value={form.name_th}
+                  onChange={handleOnThNameChange}
+                  pattern={"[ก-๏ ]+[0-9]*"}
+                  title="Thai only"
+                />
+                <LabelInput
+                  label="ชื่อวิชา (English)"
+                  id="course_eng"
+                  value={form.name_en}
+                  onChange={handleOnEnNameChange}
+                  pattern={"[a-zA-Z ]+[0-9]*"}
+                  title="English only"
+                />
               </section>
 
-              <section className="space-y-1 [&_textarea]:min-h-[80px] [&_textarea]:w-full [&_textarea]:p-1 [&>p]:font-bold">
-                <p>คำอธิบาย (ภาษาไทย)</p>
-                <textarea
-                  name="ThDesc"
-                  value={thDesc}
+              <section className="max-w-md space-y-1">
+                <DescInput
+                  label="คำอธิบาย (ภาษาไทย)"
+                  id="ThDesc"
+                  value={form.description_th}
                   onChange={handleOnThDescChange}
-                  required={true}
                   title="Thai only description"
                 />
-                <p>คำอธิบาย (English)</p>
-                <textarea
-                  name="EnDesc"
-                  value={enDesc}
+                <DescInput
+                  label="คำอธิบาย (English)"
+                  id="EnDesc"
+                  value={form.description_en}
                   onChange={handleOnEnDescChange}
-                  required={true}
                   title="English only description"
                 />
               </section>
 
               <section className="text-right">
-                <label htmlFor="credit" className="font-bold">
-                  หน่วยกิจ
-                </label>
-                <input
-                  type="text"
+                <LabelInput
+                  label="หน่วยกิจ"
                   id="credit"
                   className="ml-2 w-16"
                   pattern="[1-9]{1}"
-                  value={credit}
+                  value={form.credit}
                   onChange={handleOnCreditChange}
-                  required={true}
-                  title={"1 digit of credit (1-9)"}
+                  title="1 digit of credit (1-9)"
                 />
               </section>
 
               <section>
                 <h2 className="font-bold">ภาคการเรียนที่เปิด</h2>
-                <div className="space-y-2 text-right [&_div]:space-x-2">
+                <div className="space-y-2 text-right">
                   {term.map((_, index: number) => {
                     const termNum = index + 1;
                     const id = `${termNum}_sem`;
                     return (
                       <div key={index}>
-                        <input
-                          type="checkbox"
+                        <CheckboxInput
+                          label={`ภาคการศึกษาที่ ${termNum}`}
                           id={id}
                           defaultChecked={term[index]}
                           onChange={() => handleOnTermCheck(index)}
                         />
-                        <label htmlFor={id} className="hover:cursor-pointer">
-                          ภาคการศึกษาที่ {termNum}
-                        </label>
                       </div>
                     );
                   })}
@@ -240,38 +220,27 @@ const CourseEdit: NextPage<
                 <h2 className="font-bold">เงื่อนไข</h2>
                 <div className="mx-auto w-max space-y-2">
                   <div className="space-x-2">
-                    <input
-                      type="checkbox"
+                    <CheckboxInput
+                      label="นักศึกษาชั้นปีที่"
                       id="study_year"
                       defaultChecked={isMinYear}
                       onChange={() => handleOnIsMinYearCheck()}
                     />
-                    <label
-                      htmlFor="study_year"
-                      className="hover:cursor-pointer"
-                    >
-                      นักศึกษาชั้นปีที่
-                    </label>
                     <div className="inline-block w-14">
                       <ListBox
                         contents={studyYearList}
-                        value={minYear ? minYear.toString() : "1"}
-                        setValue={(e) => setMinYear(Number(e))}
+                        value={form.min_year ? form.min_year.toString() : "1"}
+                        setValue={(e) => handleOnMinYearChange(e)}
                       />
                     </div>
                   </div>
 
-                  <div className="space-x-2">
-                    <input
-                      type="checkbox"
-                      id="consent"
-                      defaultChecked={isConsentDept}
-                      onChange={() => handleOnIsConsentDeptCheck()}
-                    />
-                    <label htmlFor="consent" className="hover:cursor-pointer">
-                      Consent of Department
-                    </label>
-                  </div>
+                  <CheckboxInput
+                    label="Consent of Department"
+                    id="consent"
+                    defaultChecked={!!form.consent_dept}
+                    onChange={() => handleOnIsConsentDeptCheck()}
+                  />
                 </div>
               </section>
             </main>
@@ -299,5 +268,95 @@ const CourseEdit: NextPage<
     </AdminPage>
   );
 };
+
+type InputProps<T> = {
+  label: string;
+  value: string | number;
+  onChange: (e: ChangeEvent<T>) => void;
+  id: string;
+  title: string;
+  className?: string;
+};
+
+type LabelInputProps = InputProps<HTMLInputElement> & {
+  pattern: string;
+  maxLength?: number | undefined;
+};
+
+const LabelInput: React.FC<LabelInputProps> = ({
+  label,
+  value,
+  onChange,
+  id,
+  pattern,
+  title,
+  className,
+  maxLength = undefined,
+}) => (
+  <div>
+    <label htmlFor={id} className="w-40 font-bold">
+      {label}
+    </label>
+    <input
+      type="text"
+      className={className}
+      id={id}
+      value={value}
+      onChange={onChange}
+      maxLength={maxLength}
+      pattern={pattern}
+      required={true}
+      title={title}
+    />
+  </div>
+);
+
+const DescInput: React.FC<InputProps<HTMLTextAreaElement>> = ({
+  label,
+  id,
+  value,
+  onChange,
+  title,
+}) => (
+  <>
+    <label htmlFor={id} className="font-bold">
+      {label}
+    </label>
+    <textarea
+      className="min-h-[80px] w-full p-1"
+      name={id}
+      value={value}
+      onChange={onChange}
+      required={true}
+      title={title}
+    />
+  </>
+);
+
+type CheckboxInputProps = {
+  label: string;
+  id: string;
+  defaultChecked: boolean;
+  onChange: () => void;
+};
+
+const CheckboxInput: React.FC<CheckboxInputProps> = ({
+  label,
+  id,
+  defaultChecked,
+  onChange,
+}) => (
+  <div className="inline-block space-x-2">
+    <input
+      type="checkbox"
+      id={id}
+      defaultChecked={defaultChecked}
+      onChange={() => onChange()}
+    />
+    <label htmlFor={id} className="hover:cursor-pointer">
+      {label}
+    </label>
+  </div>
+);
 
 export default CourseEdit;

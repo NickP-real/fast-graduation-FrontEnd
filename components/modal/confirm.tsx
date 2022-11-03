@@ -1,14 +1,13 @@
-import { NextRouter } from "next/router";
 import React from "react";
 import Modal, { ModalProps } from "./modal";
 
 type Props = ModalProps & {
-  router: NextRouter;
+  onConfirm: () => void;
 };
 
-const ConfirmModal: React.FC<Props> = ({ open, setOpen, router }: Props) => {
+const ConfirmModal: React.FC<Props> = ({ open, setOpen, onConfirm }: Props) => {
   function handleOnConfirm() {
-    router.back();
+    onConfirm();
     setOpen(false);
   }
 

@@ -49,7 +49,7 @@ export const Table: React.FC<Props> = ({
                 })}
 
                 {rowDatas.components && (
-                  <td className="space-x-2 text-center align-middle">
+                  <td align="center" className="space-x-2">
                     {rowDatas.components.map(
                       (component: ReactNode) => component
                     )}

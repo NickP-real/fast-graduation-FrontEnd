@@ -1,5 +1,5 @@
 import Panel from "components/main/panel";
-import Page from "components/page";
+import { StudentPage } from "components/page";
 import PlanListTable from "components/student/table/plan_list_table";
 import { Course } from "model/model";
 import {
@@ -49,7 +49,7 @@ const Suggestion: NextPage<
   }
 
   return (
-    <Page type="Student">
+    <StudentPage>
       <h1 className="print:text-fred">ผลการแนะนำ</h1>
       <div className="flex flex-col gap-y-6">
         <Panel>
@@ -82,7 +82,7 @@ const Suggestion: NextPage<
           />
         </section>
       </div>
-    </Page>
+    </StudentPage>
   );
 };
 

@@ -51,26 +51,26 @@ const CourseBrowse: NextPage<
   const handleOnDelClick = () => setQuery("");
 
   return (
-    <>
-      <AdminPage>
-        <h1>จัดการข้อมูลรายวิชาที่เปิดสอน</h1>
-        <Panel>
+    <AdminPage>
+      <h1>จัดการข้อมูลรายวิชาที่เปิดสอน</h1>
+      <Panel>
+        <div className="ml-auto w-max">
           <AddCourseButton
             onClick={() => {
               return;
             }}
           />
-          <SearchBar
-            query={query}
-            handleOnChange={handleOnChange}
-            handleOnDelClick={handleOnDelClick}
-          />
-          <div className="my-6">
-            <CourseTable courses={filterdCourses} />
-          </div>
-        </Panel>
-      </AdminPage>
-    </>
+        </div>
+        <SearchBar
+          query={query}
+          handleOnChange={handleOnChange}
+          handleOnDelClick={handleOnDelClick}
+        />
+        <div className="my-6">
+          <CourseTable courses={filterdCourses} />
+        </div>
+      </Panel>
+    </AdminPage>
   );
 };
 

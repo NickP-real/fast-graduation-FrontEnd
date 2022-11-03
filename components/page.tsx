@@ -70,5 +70,3 @@ export const StudentPage: React.FC<PageProps> = ({ children }: PageProps) => (
 export const AdminPage: React.FC<PageProps> = ({ children }: PageProps) => (
   <Page type="Admin">{children}</Page>
 );
-
-export default Page;

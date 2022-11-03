@@ -4,10 +4,8 @@ import {
   CurriculumTable,
   CurriculumTableProps,
 } from "components/table/curriculum_table";
-import { NextRouter } from "next/router";
-import React, { ChangeEvent, Dispatch, SetStateAction } from "react";
-import AddPlanModal from "./modal/add_plan";
-import ConfirmModal from "./modal/confirm";
+import React, { ChangeEvent } from "react";
+import { AddButton } from "./button/button";
 
 type Props = CurriculumTableProps & {
   headerText: "แก้ไขหลักสูตร" | "เพิ่มหลักสูตร";
@@ -17,15 +15,10 @@ type Props = CurriculumTableProps & {
   handleOnSaveClick: () => void;
   handleOnStartYearChange: (e: ChangeEvent<HTMLInputElement>) => void;
   handleOnEndYearChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  addPlanOpen: boolean;
-  setAddPlanOpen: Dispatch<SetStateAction<boolean>>;
-  handleOnPlanAdd: (thName: string, enName: string) => void;
-  confirmOpen: boolean;
-  setConfirmOpen: Dispatch<SetStateAction<boolean>>;
-  router: NextRouter;
+  handleOnAdd: () => void;
 };
 
-const EditCurriculumPage: React.FC<Props> = ({
+export const EditCurriculumPage: React.FC<Props> = ({
   contents,
   handleOnAdd,
   headerText,
@@ -35,55 +28,27 @@ const EditCurriculumPage: React.FC<Props> = ({
   handleOnSaveClick,
   handleOnStartYearChange,
   handleOnEndYearChange,
-  addPlanOpen,
-  setAddPlanOpen,
-  handleOnPlanAdd,
-  confirmOpen,
-  setConfirmOpen,
-  router,
 }: Props) => {
-  // const link = `/main/admin/manage-curriculum/${cur?.toString()}/edit`;
-  // const content: string[] = ["A", "B", "C"];
-
   return (
-    <>
-      <AddPlanModal
-        open={addPlanOpen}
-        setOpen={setAddPlanOpen}
-        onClick={handleOnPlanAdd}
-      />
-      <ConfirmModal
-        open={confirmOpen}
-        setOpen={setConfirmOpen}
-        router={router}
-      />
-      <AdminPage>
-        <Panel>
-          <h2 className="fast-head text-4xl">{headerText}</h2>
-
-          <div className="my-6">
-            <CurriculumTable handleOnAdd={handleOnAdd} contents={contents} />
+    <AdminPage>
+      <h1>{headerText}</h1>
+      <Panel>
+        <main className="space-y-6">
+          <div className="ml-auto w-max">
+            <AddButton onClick={handleOnAdd} />
           </div>
+          <CurriculumTable contents={contents} />
 
           <form className="fast-text my-4 max-w-max items-center space-y-2 text-xl font-extrabold">
-            <label htmlFor="start_year" className="w-40 md:w-36">
-              เริ่มต้นปีการศึกษา
-            </label>
-            <input
-              type="number"
-              id="start_date"
-              className="w-24 text-center md:mx-3"
+            <YearInput
+              label="เริ่มต้นปีการศึกษา"
+              id="start_year"
               value={start}
               onChange={handleOnStartYearChange}
             />
-
-            <label htmlFor="end_year" className="w-40 md:w-36">
-              สิ้นสุดปีการศึกษา
-            </label>
-            <input
-              type="number"
+            <YearInput
+              label="สิ้นสุดปีการศึกษา"
               id="end_year"
-              className="w-24 text-center md:mx-3"
               value={end}
               onChange={handleOnEndYearChange}
             />
@@ -93,11 +58,38 @@ const EditCurriculumPage: React.FC<Props> = ({
             onSaveClick={handleOnSaveClick}
             onCancelClick={handleOnCancelClick}
           />
-        </Panel>
-      </AdminPage>
-    </>
+        </main>
+      </Panel>
+    </AdminPage>
   );
 };
+
+type YearInputProps = {
+  label: string;
+  id: string;
+  value: number;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+};
+
+const YearInput: React.FC<YearInputProps> = ({
+  label,
+  id,
+  value,
+  onChange,
+}: YearInputProps) => (
+  <>
+    <label htmlFor={id} className="w-40">
+      {label}
+    </label>
+    <input
+      type="number"
+      id={id}
+      className="w-24 text-center md:mx-3"
+      defaultValue={value}
+      onChange={onChange}
+    />
+  </>
+);
 
 type ActionProps = {
   onSaveClick: () => void;
@@ -125,5 +117,3 @@ const ActionButton: React.FC<ActionProps> = ({
     </div>
   );
 };
-
-export default EditCurriculumPage;

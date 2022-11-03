@@ -1,8 +1,10 @@
+import { Button } from "components/button/button";
 import Modal from "components/modal/modal";
 import PlanListTable from "components/student/table/plan_list_table";
 import Table, { TableContent } from "components/table";
 import { CategoryAbbr, Course } from "model/model";
 import React, { Dispatch, SetStateAction } from "react";
+import { getCalculatedCredit } from "utils/calculate_credit";
 
 type Props = {
   enrollCourse: Course[];
@@ -21,33 +23,8 @@ const SummaryModal: React.FC<Props> = ({
 }: Props) => {
   const numberInfoHeaders: string[] = ["หมวดหมู่", "หน่วยกิจรวม"];
 
-  const allCredits: { [key: number]: number } = {
-    4: 0,
-    3: 0,
-    2: 0,
-    5: 0,
-    0: 0,
-    1: 0,
-    6: 0,
-    9: 0,
-    8: 0,
-    7: 0,
-  };
-
-  enrollCourse.forEach(({ credit, category_id }: Course) => {
-    if (category_id !== 1)
-      return (allCredits[category_id ? category_id - 1 : 0] += credit);
-
-    if (6 - allCredits[0] === 0) {
-      allCredits[1] += credit;
-    } else if (credit + allCredits[0] > 6) {
-      const left = 6 - allCredits[0];
-      allCredits[0] = 6;
-      allCredits[1] += credit - left;
-    } else {
-      allCredits[0] += credit;
-    }
-  });
+  const allCredits: { [key: number]: number } =
+    getCalculatedCredit(enrollCourse);
 
   const contents: TableContent[] = [];
 
@@ -74,18 +51,16 @@ const SummaryModal: React.FC<Props> = ({
         </div>
 
         <section className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-12 sm:space-y-0">
-          <button
-            className="h-16 w-60 rounded-xl bg-fbrgreen/70 text-2xl font-extrabold text-fpurple shadow-md hover:bg-fbrgreen"
+          <Button
+            className="bg-fbrgreen/70 px-6 py-3 text-xl text-fpurple hover:bg-fbrgreen"
             onClick={handleOnConfirmClick}
-          >
-            ยืนยันและดำเนินการ
-          </button>
-          <button
+            label="ยืนยันและดำเนินการ"
+          />
+          <Button
+            className="bg-fbryellow/70 px-6 py-3 text-xl text-fred hover:bg-fbryellow"
             onClick={handleOnCancelClick}
-            className="h-16 w-32 rounded-xl bg-fbryellow/70 text-2xl font-extrabold text-fred shadow-md hover:bg-fbryellow"
-          >
-            ยกเลิก
-          </button>
+            label="ยกเลิก"
+          />
         </section>
       </main>
     </Modal>

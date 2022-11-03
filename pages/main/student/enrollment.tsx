@@ -1,3 +1,4 @@
+import { AddCourseButton } from "components/button/button";
 import CourseSearchModal from "components/course_search_modal";
 import Panel from "components/main/panel";
 import DescriptionModal from "components/modal/description";
@@ -26,14 +27,10 @@ export const getServerSideProps = async ({
 
     const enrolled = await Api.getUpdateEnrollment();
 
-    let enrolledCourses = enrolled.map(({ course_id }) => {
+    const enrolledCourses: Course[] = enrolled.map(({ course_id }) => {
       return courses.find(({ id }) => id === course_id);
-    });
+    }) as Course[];
 
-    if (!enrolledCourses) {
-      enrolledCourses = [];
-      return { enrolledCourses, courses, category };
-    }
     return {
       props: { enrolledCourses, courses, category },
     };
@@ -48,7 +45,7 @@ const Enrollment: NextPage<
   const [isSummaryModal, setIsSummaryModal] = useState<boolean>(false);
   const [isInfoModal, setIsInfoModal] = useState<boolean>(false);
   const [enrollCourse, setEnrollCourse] = useState<Course[]>(enrolledCourses);
-  const [showDesc, setShowDesc] = useState<Course>(enrollCourse[0]);
+  const [showDesc, setShowDesc] = useState<Course>();
 
   function handleOnAddClick() {
     setModalOpen(true);
@@ -87,11 +84,13 @@ const Enrollment: NextPage<
 
   return (
     <>
-      <DescriptionModal
-        open={isInfoModal}
-        setOpen={setIsInfoModal}
-        course={showDesc as Course}
-      />
+      {showDesc && (
+        <DescriptionModal
+          open={isInfoModal}
+          setOpen={setIsInfoModal}
+          course={showDesc as Course}
+        />
+      )}
       <SummaryModal
         enrollCourse={enrollCourse}
         categories={category}
@@ -110,11 +109,13 @@ const Enrollment: NextPage<
       <StudentPage>
         <h2 className="fast-head text-4xl">จัดการแผนการเรียน</h2>
         <Panel>
-          <div className="flex flex-col items-center justify-center gap-y-7">
+          <div className="ml-auto w-max">
+            <AddCourseButton onClick={handleOnAddClick} />
+          </div>
+          <div className="flex flex-col items-center justify-center space-y-7 sm:mt-7">
             <PlanTable
               courses={enrollCourse}
               setCourses={setEnrollCourse}
-              onClick={handleOnAddClick}
               categories={category}
               handleOnInfoClick={handleOnInfoClick}
             />

@@ -1,5 +1,7 @@
 import { DelButton, EditButton } from "components/button/button";
-import EditCurriculumPage from "components/edit_curriculum_page";
+import { EditCurriculumPage } from "components/edit_curriculum_page";
+import AddPlanModal from "components/modal/add_plan";
+import ConfirmModal from "components/modal/confirm";
 import { TableContent } from "components/table";
 import { ProgramPlan } from "model/model";
 import {
@@ -7,7 +9,7 @@ import {
   InferGetServerSidePropsType,
   NextPage,
 } from "next";
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import { Api, catchErrorRedirectLogin } from "pages/api/api";
 import React, { useState } from "react";
 
@@ -15,7 +17,7 @@ export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   Api.setCookie(context.req.cookies);
-  // console.log(context.query.cur);
+
   return await catchErrorRedirectLogin(async () => {
     const datas = await Api.programPlanBrowse(Number(context.query.cur));
     return {
@@ -42,27 +44,10 @@ const CurriculumEdit: NextPage<
   const [addPlanOpen, setAddPlanOpen] = useState<boolean>(false);
   const [confirmOpen, setConfirmOpen] = useState<boolean>(false);
 
-  const modifiedContent: TableContent[] = plans.map(
-    (plan: ProgramPlan, index: number) => {
-      const planName = `${plan.name_en}\n${plan.name_th}`;
-      return {
-        texts: [planName],
-        components: [
-          <EditButton
-            key={`0${index}${plan.id}${plan.program_id}`}
-            onClick={() => {
-              router.push(`${link}/${plan.id}`);
-            }}
-          />,
-          <DelButton
-            key={`1${index}${plan.id}${plan.program_id}`}
-            onClick={() => {
-              return;
-            }}
-          />,
-        ],
-      };
-    }
+  const modifiedContent: TableContent[] = makeModifiedContent(
+    plans,
+    link,
+    router
   );
 
   function handleOnAdd() {
@@ -88,7 +73,7 @@ const CurriculumEdit: NextPage<
       const res = await Api.programPlanAdd(plan);
       if (res === "fail") {
         alert(`fail to add\n${plan.name_en}\n${plan.name_th}`);
-        break;
+        return;
       }
     }
 
@@ -112,6 +97,10 @@ const CurriculumEdit: NextPage<
     router.back();
   }
 
+  function onConfirm() {
+    router.back();
+  }
+
   function handleOnStartYearChange(e: React.ChangeEvent<HTMLInputElement>) {
     setStartYear(Number(e.target.value));
   }
@@ -121,24 +110,56 @@ const CurriculumEdit: NextPage<
   }
 
   return (
-    <EditCurriculumPage
-      contents={modifiedContent}
-      start={startYear}
-      end={endYear}
-      handleOnAdd={handleOnAdd}
-      headerText="แก้ไขหลักสูตร"
-      handleOnSaveClick={handleOnSaveClick}
-      handleOnCancelClick={handleOnCancelClick}
-      handleOnStartYearChange={handleOnStartYearChange}
-      handleOnEndYearChange={handleOnEndYearChange}
-      addPlanOpen={addPlanOpen}
-      setAddPlanOpen={setAddPlanOpen}
-      handleOnPlanAdd={handleOnPlanAdd}
-      confirmOpen={confirmOpen}
-      setConfirmOpen={setConfirmOpen}
-      router={router}
-    />
+    <>
+      <AddPlanModal
+        open={addPlanOpen}
+        setOpen={setAddPlanOpen}
+        onClick={handleOnPlanAdd}
+      />
+      <ConfirmModal
+        open={confirmOpen}
+        setOpen={setConfirmOpen}
+        onConfirm={onConfirm}
+      />
+      <EditCurriculumPage
+        contents={modifiedContent}
+        start={startYear}
+        end={endYear}
+        handleOnAdd={handleOnAdd}
+        headerText="แก้ไขหลักสูตร"
+        handleOnSaveClick={handleOnSaveClick}
+        handleOnCancelClick={handleOnCancelClick}
+        handleOnStartYearChange={handleOnStartYearChange}
+        handleOnEndYearChange={handleOnEndYearChange}
+      />
+    </>
   );
 };
+
+const makeModifiedContent = (
+  plans: ProgramPlan[],
+  link: string,
+  router: NextRouter
+): TableContent[] =>
+  plans.map((plan: ProgramPlan, index: number) => {
+    const planName = `${plan.name_en}\n${plan.name_th}`;
+    return {
+      texts: [planName],
+      components: [
+        <EditButton
+          key={`0${index}${plan.id}${plan.program_id}`}
+          onClick={() => {
+            router.push(`${link}/${plan.id}`);
+          }}
+        />,
+        <DelButton
+          key={`1${index}${plan.id}${plan.program_id}`}
+          onClick={() => {
+            return;
+          }}
+        />,
+      ],
+    };
+  });
 
 export default CurriculumEdit;

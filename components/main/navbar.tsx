@@ -1,4 +1,5 @@
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import ConfirmModal from "components/modal/confirm";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -26,40 +27,53 @@ const NavbarLayout: React.FC<LayoutProps> = ({
   type,
   isShow,
 }: LayoutProps) => {
-  async function logoutClicked() {
+  const [confirm, setConfirm] = useState(false);
+
+  function logoutClicked() {
+    setConfirm(true);
+  }
+
+  async function onLogoutConfirm() {
     await signOut();
     redirectToAuth();
   }
 
   return (
-    <nav
-      className={`my-auto w-max transition-all duration-300 ease-in md:z-auto md:flex md:w-full md:items-center md:justify-between md:opacity-100 ${
-        isShow ? "h-24 opacity-100" : "h-0 opacity-0"
-      } md:h-max `}
-    >
-      <ul className="fast-text flex flex-col md:flex-row md:gap-x-8">
-        {datas.map((data) => {
-          return (
-            <Link href={data.href} key={data.value}>
-              <a className="my-1 md:my-0">{data.value}</a>
-            </Link>
-          );
-        })}
-        <a
-          className="my-1 hover:cursor-pointer md:my-0 md:hidden"
-          onClick={logoutClicked}
-        >
-          ออกจากระบบ
-        </a>
-      </ul>
+    <>
+      <ConfirmModal
+        open={confirm}
+        setOpen={setConfirm}
+        onConfirm={onLogoutConfirm}
+      />
+      <nav
+        className={`my-auto w-max transition-all duration-300 ease-in md:z-auto md:flex md:w-full md:items-center md:justify-between md:opacity-100 ${
+          isShow ? "h-24 opacity-100" : "h-0 opacity-0"
+        } md:h-max `}
+      >
+        <ul className="fast-text flex flex-col md:flex-row md:gap-x-8">
+          {datas.map((data) => {
+            return (
+              <Link href={data.href} key={data.value}>
+                <a className="my-1 md:my-0">{data.value}</a>
+              </Link>
+            );
+          })}
+          <a
+            className="my-1 hover:cursor-pointer md:my-0 md:hidden"
+            onClick={logoutClicked}
+          >
+            ออกจากระบบ
+          </a>
+        </ul>
 
-      <div className="hidden space-x-2 md:flex md:h-max md:items-center md:opacity-100">
-        <ProfileButton type={type} />
-        <a className="fast-text hover:cursor-pointer" onClick={logoutClicked}>
-          ออกจากระบบ
-        </a>
-      </div>
-    </nav>
+        <div className="hidden space-x-2 md:flex md:h-max md:items-center md:opacity-100">
+          <ProfileButton type={type} />
+          <a className="fast-text hover:cursor-pointer" onClick={logoutClicked}>
+            ออกจากระบบ
+          </a>
+        </div>
+      </nav>
+    </>
   );
 };
 

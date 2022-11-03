@@ -7,7 +7,8 @@ import {
   ProgramPlan,
   SuggestionResult,
 } from "model/model";
-import Session from "supertokens-auth-react/recipe/session";
+import { redirectToAuth } from "supertokens-auth-react/recipe/emailpassword";
+import Session, { signOut } from "supertokens-auth-react/recipe/session";
 import { formatCookie } from "utils/format_cookie";
 
 export const api = axios.create({
