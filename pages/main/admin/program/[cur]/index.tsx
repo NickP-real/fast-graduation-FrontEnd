@@ -44,13 +44,17 @@ const CurriculumEdit: NextPage<
   const [addPlanOpen, setAddPlanOpen] = useState<boolean>(false);
   const [confirmOpen, setConfirmOpen] = useState<boolean>(false);
 
+  const [isDelConfirm, setIsDelConfirm] = useState<boolean>(false);
+  const [currDel, setCurrDel] = useState<number>(-1);
+
   const modifiedContent: TableContent[] = makeModifiedContent(
     plans,
     link,
-    router
+    router,
+    handleOnDelClick
   );
 
-  function handleOnAdd() {
+  function handleOnAddClick() {
     setAddPlanOpen(true);
   }
 
@@ -67,10 +71,12 @@ const CurriculumEdit: NextPage<
   }
 
   async function handleOnSaveClick() {
+    // TODO: Api for delete plans
     let i = 0;
     for (i; i < addedPlan.length; i++) {
       const plan = addedPlan[i];
       const res = await Api.programPlanAdd(plan);
+      console.log(res);
       if (res === "fail") {
         alert(`fail to add\n${plan.name_en}\n${plan.name_th}`);
         return;
@@ -87,7 +93,7 @@ const CurriculumEdit: NextPage<
 
   function handleOnCancelClick() {
     if (
-      plans.toString() !== datas.toString() ||
+      JSON.stringify(plans) !== JSON.stringify(datas) ||
       Number(start) !== startYear ||
       Number(end) !== endYear
     ) {
@@ -102,11 +108,22 @@ const CurriculumEdit: NextPage<
   }
 
   function handleOnStartYearChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setStartYear(Number(e.target.value));
+    setStartYear(+e.target.value);
   }
 
   function handleOnEndYearChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setEndYear(Number(e.target.value));
+    setEndYear(+e.target.value);
+  }
+
+  function handleOnDelClick(index: number) {
+    setCurrDel(index);
+    setIsDelConfirm(true);
+  }
+
+  function handleOnDel() {
+    const update: ProgramPlan[] = plans.filter((_, index) => index !== currDel);
+    setPlans(() => update);
+    setIsDelConfirm(false);
   }
 
   return (
@@ -114,18 +131,23 @@ const CurriculumEdit: NextPage<
       <AddPlanModal
         open={addPlanOpen}
         setOpen={setAddPlanOpen}
-        onClick={handleOnPlanAdd}
+        onSubmit={handleOnPlanAdd}
       />
       <ConfirmModal
         open={confirmOpen}
         setOpen={setConfirmOpen}
         onConfirm={onConfirm}
       />
+      <ConfirmModal
+        open={isDelConfirm}
+        setOpen={setIsDelConfirm}
+        onConfirm={handleOnDel}
+      />
       <EditCurriculumPage
         contents={modifiedContent}
         start={startYear}
         end={endYear}
-        handleOnAdd={handleOnAdd}
+        handleOnAdd={handleOnAddClick}
         headerText="แก้ไขหลักสูตร"
         handleOnSaveClick={handleOnSaveClick}
         handleOnCancelClick={handleOnCancelClick}
@@ -139,7 +161,8 @@ const CurriculumEdit: NextPage<
 const makeModifiedContent = (
   plans: ProgramPlan[],
   link: string,
-  router: NextRouter
+  router: NextRouter,
+  handleOnDelClick: (index: number) => void
 ): TableContent[] =>
   plans.map((plan: ProgramPlan, index: number) => {
     const planName = `${plan.name_en}\n${plan.name_th}`;
@@ -154,9 +177,7 @@ const makeModifiedContent = (
         />,
         <DelButton
           key={`1${index}${plan.id}${plan.program_id}`}
-          onClick={() => {
-            return;
-          }}
+          onClick={() => handleOnDelClick(index)}
         />,
       ],
     };

@@ -13,7 +13,8 @@ export const getServerSideProps = async () => {
     },
   };
 };
-export const Home: NextPage = () => {
+
+const Home: NextPage = () => {
   return <></>;
 };
 

@@ -1,6 +1,7 @@
 import { AddButton, DelButton, EditButton } from "components/button/button";
 import Panel from "components/main/panel";
 import AddProgramModal from "components/modal/add_program";
+import ConfirmModal from "components/modal/confirm";
 import { AdminPage } from "components/page";
 import { TableContent } from "components/table";
 import { CurriculumTable } from "components/table/curriculum_table";
@@ -35,31 +36,53 @@ const ProgramBrowse: NextPage<
   const router = useRouter();
   const link = "/main/admin/program";
   const [isAddCurModal, setIsAddCurModal] = useState<boolean>(false);
+  const [isDelConfirmModal, setIsDelConfirmModal] = useState<boolean>(false);
+  const [currDel, setCurrDel] = useState<number>(-1);
   const [programs, setProgram] = useState<Program[]>(datas);
 
   const modifiedContent: TableContent[] = makeModifiedContent(
     programs,
     link,
-    router
+    router,
+    handleOnDelClick
   );
 
-  function handleOnAdd() {
+  function handleOnDelClick(index: number) {
+    setIsDelConfirmModal(true);
+    setCurrDel(index);
+  }
+
+  function handleOnDel() {
+    const update: Program[] = programs.filter((_, index) => currDel !== index);
+    setProgram(() => update);
+    setIsDelConfirmModal(false);
+
+    // TODO: Api program delete
+  }
+
+  function handleOnAddClick() {
     setIsAddCurModal(true);
     // setIsAdd(!isAdd);
   }
 
   return (
     <>
+      <ConfirmModal
+        open={isDelConfirmModal}
+        setOpen={setIsDelConfirmModal}
+        onConfirm={handleOnDel}
+      />
       <AddProgramModal
         open={isAddCurModal}
         setOpen={setIsAddCurModal}
         setProgram={setProgram}
+        currProgramLength={programs.length}
       />
       <AdminPage>
         <h1>จัดการหลักสูตร</h1>
         <Panel>
           <div className="ml-auto w-max">
-            <AddButton onClick={handleOnAdd} />
+            <AddButton onClick={handleOnAddClick} />
           </div>
           <main className="my-6">
             <CurriculumTable contents={modifiedContent} />
@@ -73,10 +96,13 @@ const ProgramBrowse: NextPage<
 const makeModifiedContent = (
   programs: Program[],
   link: string,
-  router: NextRouter
+  router: NextRouter,
+  handleOnDelClick: (index: number) => void
 ): TableContent[] =>
   programs.map((content: Program, index: number) => {
-    const program = content.program_name_th.split("(")[1].slice(0, -1);
+    const program = content.program_name_th.includes("(")
+      ? content.program_name_th.split("(")[1].slice(0, -1)
+      : content.program_name_th;
     return {
       texts: [program],
       components: [
@@ -91,9 +117,7 @@ const makeModifiedContent = (
         />,
         <DelButton
           key={"1" + content.program_id + index}
-          onClick={() => {
-            return;
-          }}
+          onClick={() => handleOnDelClick(index)}
         />,
       ],
     };
