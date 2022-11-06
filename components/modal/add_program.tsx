@@ -1,3 +1,4 @@
+import { SubmitAddButton } from "components/button/submit_add_button";
 import { Program } from "model/model";
 import React, {
   ChangeEvent,
@@ -88,7 +89,7 @@ const AddProgramModal: React.FC<Props> = ({
           onChange={handleOnEndYearChange}
           title="End Year"
         />
-        <SubmitButton />
+        <SubmitAddButton />
       </form>
     </Modal>
   );
@@ -121,16 +122,6 @@ const InputForm: React.FC<InputFormProps> = ({
       title={title}
     />
   </div>
-);
-
-const SubmitButton: React.FC = () => (
-  <button
-    type="submit"
-    className="mx-auto block rounded-md bg-fbrgreen/70 py-2 px-6 text-center text-xl font-bold text-fpurple
-shadow-md hover:bg-fbrgreen"
-  >
-    เพิ่ม
-  </button>
 );
 
 export default AddProgramModal;

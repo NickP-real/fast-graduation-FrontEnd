@@ -6,9 +6,13 @@ import EditTable from "./edit_table";
 
 type Props = {
   courses: Course[];
+  handleOnDeleteClick: (index: number) => void;
 };
 
-const CourseTable: React.FC<Props> = ({ courses }: Props) => {
+const CourseTable: React.FC<Props> = ({
+  courses,
+  handleOnDeleteClick,
+}: Props) => {
   const router = useRouter();
 
   function handleOnEditClick(id: number) {
@@ -30,9 +34,7 @@ const CourseTable: React.FC<Props> = ({ courses }: Props) => {
               />,
               <DelButton
                 key={"Del" + id + courseName + index}
-                onClick={() => {
-                  return;
-                }}
+                onClick={() => handleOnDeleteClick(index)}
               />,
             ],
           };

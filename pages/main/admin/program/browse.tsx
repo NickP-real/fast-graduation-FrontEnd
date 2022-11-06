@@ -52,12 +52,27 @@ const ProgramBrowse: NextPage<
     setCurrDel(index);
   }
 
-  function handleOnDel() {
+  async function handleOnDel() {
+    // const programId = programs.find(
+    //   (program) => program.program_id === currDel
+    // )?.program_id;
+
+    // if (!programId) {
+    //   alert("Deletion error");
+    //   return;
+    // }
+
+    // const res = await Api.programDel(programId);
+    // if (res != "ok") {
+    //   alert("Deletion error");
+    //   return;
+    // }
+    // alert("Delete complete");
+
     const update: Program[] = programs.filter((_, index) => currDel !== index);
     setProgram(() => update);
     setIsDelConfirmModal(false);
-
-    // TODO: Api program delete
+    alert("Delete complete");
   }
 
   function handleOnAddClick() {
@@ -81,9 +96,9 @@ const ProgramBrowse: NextPage<
       <AdminPage>
         <h1>จัดการหลักสูตร</h1>
         <Panel>
-          <div className="ml-auto w-max">
-            <AddButton onClick={handleOnAddClick} />
-          </div>
+          {/* <div className="ml-auto w-max"> */}
+          {/*   <AddButton onClick={handleOnAddClick} /> */}
+          {/* </div> */}
           <main className="my-6">
             <CurriculumTable contents={modifiedContent} />
           </main>

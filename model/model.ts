@@ -49,3 +49,14 @@ export type SuggestionResult = {
   term_1: number[];
   term_2: number[];
 };
+
+export type StudentInfo = {
+  email: string;
+  first_name_en: string;
+  first_name_th: string;
+  last_name_en: string;
+  last_name_th: string;
+  mid_name_en: string;
+  mid_name_th: string;
+  student_id: number;
+};

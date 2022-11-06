@@ -34,9 +34,9 @@ export const EditCurriculumPage: React.FC<Props> = ({
       <h1>{headerText}</h1>
       <Panel>
         <main className="space-y-6">
-          <div className="ml-auto w-max">
-            <AddButton onClick={handleOnAdd} />
-          </div>
+          {/* <div className="ml-auto w-max"> */}
+          {/*   <AddButton onClick={handleOnAdd} /> */}
+          {/* </div> */}
           <CurriculumTable contents={contents} />
 
           <form className="fast-text my-4 max-w-max items-center space-y-2 text-xl font-extrabold">

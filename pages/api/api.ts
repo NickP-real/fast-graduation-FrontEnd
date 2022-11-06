@@ -5,10 +5,10 @@ import {
   EnrollCourse,
   Program,
   ProgramPlan,
+  StudentInfo,
   SuggestionResult,
 } from "model/model";
-import { redirectToAuth } from "supertokens-auth-react/recipe/emailpassword";
-import Session, { signOut } from "supertokens-auth-react/recipe/session";
+import Session from "supertokens-auth-react/recipe/session";
 import { formatCookie } from "utils/format_cookie";
 
 export const api = axios.create({
@@ -29,6 +29,7 @@ export class Api {
     this.cookiesHeader.headers.Cookie = this.cookies;
   }
 
+  // Program
   static async programBrowse() {
     const {
       data: { data: datas },
@@ -38,6 +39,13 @@ export class Api {
       },
     });
     return datas;
+  }
+
+  static async programDel(programId: number) {
+    const {
+      data: { massage: res },
+    } = await api.get(`/admin/program/delete/${programId}`);
+    return res;
   }
 
   // Program Plan
@@ -94,6 +102,22 @@ export class Api {
     return status;
   }
 
+  static async courseAdd(body: Course) {
+    const data = await api.post(`/admin/course/add`, body);
+    return data;
+  }
+
+  static async getStudentsInfo() {
+    const {
+      data: { data: datas },
+    } = await api.get<{ data: StudentInfo[] }>(
+      "/admin/student/browse",
+      this.cookiesHeader
+    );
+    return datas;
+  }
+
+  // Student
   static async courseBrowseFromPlan() {
     const {
       data: {
