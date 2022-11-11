@@ -1,17 +1,40 @@
 import React from "react";
 import Panel from "components/main/panel";
-import Page from "components/page";
+import {
+  GetServerSidePropsContext,
+  InferGetServerSidePropsType,
+  NextPage,
+} from "next";
+import { AdminPage } from "components/page";
+import { Api, catchErrorRedirectLogin } from "pages/api/api";
+import StudentInfoTable from "components/table/student_info_table";
 
-export const Profile: React.FC = () => {
+export const getServerSideProps = async ({
+  req,
+}: GetServerSidePropsContext) => {
+  Api.setCookie(req.cookies);
+
+  return await catchErrorRedirectLogin(async () => {
+    const data = await Api.getStudentsInfo();
+    console.log(data);
+    return {
+      props: { studentDatas: data },
+    };
+  });
+};
+
+export const Profile: NextPage<
+  InferGetServerSidePropsType<typeof getServerSideProps>
+> = ({ studentDatas }) => {
   return (
-    <Page type="Admin">
-      <main className="container my-5 mx-auto flex h-32 w-full flex-grow gap-x-5">
-        <Panel small={true}>
-          <h3 className="fast-text bg-white text-2xl">ข้อมูลส่วนตัว</h3>
-        </Panel>
-        <Panel shadow="orange"></Panel>
-      </main>
-    </Page>
+    <AdminPage>
+      <Panel>
+        <main className="space-y-4">
+          <p className="font-bold">ชื่อ: </p>
+          <StudentInfoTable studentDatas={studentDatas} />
+        </main>
+      </Panel>
+    </AdminPage>
   );
 };
 
