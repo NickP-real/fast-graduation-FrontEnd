@@ -1,15 +1,18 @@
 # Fast Graduation Frontend
 
-This is only frontend part of the "Fast Graduation" project using Nextjs
+This is only frontend part of the "Fast Graduation" project using Nextjs.
 This project is a term project of 204361 Software Engineering, Chiang Mai University, Thailand
 
 ## Requirement
 
-Docker compose repository for the api, backend data
+- Docker compose repository for the api, backend data
 
 ```bash
 git clone --recursive "https://github.com/Touutae-lab/FastGraduation-DockerCompose.git"
 ```
+
+- Node version 16.15.1 or newer
+- pnpm
 
 ## Getting Started
 
