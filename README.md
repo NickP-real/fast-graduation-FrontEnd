@@ -5,8 +5,7 @@ This project is a term project of 204361 Software Engineering, Chiang Mai Univer
 
 ## What is Fast Graduation
 
-Fast graduation is a web application for recommending the course that should be enroll for 
-super senior student to graduate as soon as possible.
+Fast Graduation is a web application recommending the course that should be enrolled for super senior students to graduate as soon as possible.
 
 ## Requirement
 
