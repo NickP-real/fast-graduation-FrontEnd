@@ -1,7 +1,12 @@
 # Fast Graduation Frontend
 
 This is only frontend part of the "Fast Graduation" project using Nextjs.
-This project is a term project of 204361 Software Engineering, Chiang Mai University, Thailand
+This project is a term project of 204361 Software Engineering, Chiang Mai University, Thailand.
+
+## What is Fast Graduation
+
+Fast graduation is a web application for recommending the course that should be enroll for 
+super senior student to graduate as soon as possible.
 
 ## Requirement
 
