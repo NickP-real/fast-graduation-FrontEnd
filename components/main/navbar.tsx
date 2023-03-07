@@ -3,10 +3,8 @@ import ConfirmModal from "components/modal/confirm";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import {
-  redirectToAuth,
-  signOut,
-} from "supertokens-auth-react/recipe/emailpassword";
+import { signOut } from "supertokens-auth-react/recipe/emailpassword";
+import { redirectToAuth } from "supertokens-auth-react";
 
 interface NavbarData {
   value: string;

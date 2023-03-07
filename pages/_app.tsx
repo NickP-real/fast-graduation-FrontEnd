@@ -5,7 +5,7 @@ import Session from "supertokens-auth-react/recipe/session";
 import "../styles/globals.css";
 
 import { useEffect } from "react";
-import { redirectToAuth } from "supertokens-auth-react/recipe/thirdpartyemailpassword";
+import { redirectToAuth } from "supertokens-auth-react";
 import { frontendConfig } from "../config/frontendConfig";
 
 if (typeof window !== "undefined") {
