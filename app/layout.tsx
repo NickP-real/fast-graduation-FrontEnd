@@ -1,4 +1,9 @@
 import "./globals.css";
+import { Noto_Sans_Thai } from "@next/font/google";
+
+const noto = Noto_Sans_Thai({
+  subsets: ["thai"],
+});
 
 export const metadata = {
   title: "Create Next App",
@@ -11,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${noto.className}`}>
       <body className="bg-white">{children}</body>
     </html>
   );

@@ -9,7 +9,7 @@ export default function StudentLayout({
 }) {
   return (
     <>
-      <div className="bg-white relative">
+      <div className="relative bg-white">
         <div className="gradient h-20 p-4"></div>
         <div className="container mx-auto">
           <Image
@@ -22,19 +22,21 @@ export default function StudentLayout({
           />
         </div>
       </div>
-      <div className="bg-white border-b border-gray-500">
-        <nav className="flex h-20 text-black items-center container mx-auto justify-between">
+      <div className="border-b border-gray-500 bg-white">
+        <nav className="container mx-auto flex h-16 items-center justify-between text-sm text-black">
           <div className="space-x-5">
             <Link href="/student/enrollment">จัดการข้อมูลการเรียน</Link>
-            <Link href="/student">แนะนำแผนการเรียน</Link>
+            <Link href="/student/suggestion">แนะนำแผนการเรียน</Link>
           </div>
-          <div className="space-x-4 flex items-center">
-            <UserCircleIcon className="h-12 w-12" />
+          <div className="flex items-center space-x-4">
+            <Link href="/student">
+              <UserCircleIcon className="h-10 w-10" />
+            </Link>
             <a>ออกจากระบบ</a>
           </div>
         </nav>
       </div>
-      {children}
+      <main className="container my-2 mx-auto text-black ">{children}</main>
     </>
   );
 }
