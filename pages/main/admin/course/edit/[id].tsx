@@ -21,6 +21,7 @@ export const getServerSideProps = async ({
   Api.setCookie(req.cookies);
   return await catchErrorRedirectLogin(async () => {
     const course = await Api.courseFind(Number(query.id));
+    console.log(course);
     return {
       props: {
         course,

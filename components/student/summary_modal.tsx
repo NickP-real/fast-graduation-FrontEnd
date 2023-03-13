@@ -3,6 +3,7 @@ import Modal from "components/modal/modal";
 import PlanListTable from "components/student/table/plan_list_table";
 import Table, { TableContent } from "components/table";
 import { CategoryAbbr, Course } from "model/model";
+import { useRouter } from "next/router";
 import React, { Dispatch, SetStateAction } from "react";
 import { getCalculatedCredit } from "utils/calculate_credit";
 
@@ -21,6 +22,7 @@ const SummaryModal: React.FC<Props> = ({
   setOpen,
   handleOnConfirmClick,
 }: Props) => {
+  const router = useRouter();
   const numberInfoHeaders: string[] = ["หมวดหมู่", "หน่วยกิจรวม"];
 
   const allCredits: { [key: number]: number } =
@@ -36,6 +38,10 @@ const SummaryModal: React.FC<Props> = ({
 
   function handleOnCancelClick() {
     setOpen(false);
+  }
+
+  function handleOnCreditClick() {
+    router.push("/main/student/missing_credit");
   }
 
   return (
@@ -55,6 +61,11 @@ const SummaryModal: React.FC<Props> = ({
             className="bg-fbrgreen/70 px-6 py-3 text-xl text-fpurple hover:bg-fbrgreen"
             onClick={handleOnConfirmClick}
             label="ยืนยันและดำเนินการ"
+          />
+          <Button
+            className="bg-fbrgreen/70 px-6 py-3 text-xl text-fpurple hover:bg-fbrgreen"
+            onClick={handleOnCreditClick}
+            label="ตรวจสอบหน่วยกิจ"
           />
           <Button
             className="bg-fbryellow/70 px-6 py-3 text-xl text-fred hover:bg-fbryellow"

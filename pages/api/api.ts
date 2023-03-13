@@ -107,6 +107,11 @@ export class Api {
     return data;
   }
 
+  static async courseDelete(courseId: number) {
+    const data = await api.post(`/admin/course/delete/${courseId}`);
+    return data;
+  }
+
   static async getStudentsInfo() {
     const {
       data: { data: datas },
@@ -151,6 +156,12 @@ export class Api {
     } = await api.get<SuggestionResult>("/student/suggest", this.cookiesHeader);
 
     return { term_1, term_2 };
+  }
+
+  // mock
+  static async missing_credit() {
+    const data = await api.get("/student/missing_credits", this.cookiesHeader);
+    return data.data;
   }
 }
 

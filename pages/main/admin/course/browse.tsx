@@ -65,8 +65,10 @@ const CourseBrowse: NextPage<
     setIsDelModal(true);
   }
 
-  function handleOnDel() {
+  async function handleOnDel() {
     const update: Course[] = courses.filter((_, index) => currDel !== index);
+    const delCourse = courses.find((_, index) => currDel === index);
+    if (delCourse) await Api.courseDelete(delCourse?.id);
     setCourses(() => update);
   }
 
@@ -86,15 +88,15 @@ const CourseBrowse: NextPage<
 
     // TODO: Api add
     const body: Course = {
-      id: newCourseId,
       consent_dept: 0,
       credit: 1,
+      id: newCourseId,
       description_en: "",
       description_th: "",
-      min_year: null,
+      min_year: 1,
       name_en: "",
       name_th: "",
-      term_1: 0,
+      term_1: 1,
       term_2: 0,
       term_s: 0,
     };
@@ -119,9 +121,9 @@ const CourseBrowse: NextPage<
       <AdminPage>
         <h1>จัดการข้อมูลรายวิชาที่เปิดสอน</h1>
         <Panel>
-          {/* <div className="ml-auto w-max"> */}
-          {/*   <AddCourseButton onClick={handleOnCourseAddClick} /> */}
-          {/* </div> */}
+          <div className="ml-auto w-max">
+            <AddCourseButton onClick={handleOnCourseAddClick} />
+          </div>
           <SearchBar
             query={query}
             handleOnChange={handleOnChange}
